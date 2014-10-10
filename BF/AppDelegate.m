@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "AuthViewController.h"
+#import "TMAPIClient.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +19,34 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    
+    //authenticatedUser: check from NSUserDefaults User credential if its present then set your navigation flow accordingly
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults valueForKey:@"token"];
+    NSLog(@"Token %@", token);
+    
+    if (token)
+    {
+        self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+    }
+    else
+    {
+        UIViewController* rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AuthViewController"];
+
+        self.window.rootViewController = rootController;
+    }
+    
+    [TMAPIClient sharedInstance].OAuthConsumerKey =
+        @"lSmUjeH9z2sl9HTr2VtzYIcJ7Q0Yyl1jMmsG9MVCHSQI7E8a4t";
+    [TMAPIClient sharedInstance].OAuthConsumerSecret =
+        @"h5covcSDoQjpWoOxYi81nn6qLDoRPjAsJQozYSbsRPsX49ejop";
+    
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [[TMAPIClient sharedInstance] handleOpenURL:url];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
