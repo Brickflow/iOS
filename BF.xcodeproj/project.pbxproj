@@ -8,16 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		DABC1DB839700FCA9C26221E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCF218DB1AEE51BE31A46FD /* libPods.a */; };
+		E506B0A919F1682E005BCB7C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E506B0A819F1682E005BCB7C /* Images.xcassets */; };
 		E510FD5619E6BC2F004B8AF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD5519E6BC2F004B8AF5 /* main.m */; };
 		E510FD5919E6BC2F004B8AF5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD5819E6BC2F004B8AF5 /* AppDelegate.m */; };
 		E510FD5F19E6BC2F004B8AF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */; };
-		E510FD6119E6BC2F004B8AF5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E510FD6019E6BC2F004B8AF5 /* Images.xcassets */; };
 		E510FD6419E6BC2F004B8AF5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E510FD6219E6BC2F004B8AF5 /* LaunchScreen.xib */; };
 		E510FD7019E6BC2F004B8AF5 /* BFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD6F19E6BC2F004B8AF5 /* BFTests.m */; };
 		E510FD7B19E6C00F004B8AF5 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD7A19E6C00F004B8AF5 /* AuthViewController.m */; };
 		E544663419E6EADD003C0CB7 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = E544663319E6EADD003C0CB7 /* BrickView.m */; };
 		E590896719E6E676008A2821 /* Brick.m in Sources */ = {isa = PBXBuildFile; fileRef = E590896619E6E676008A2821 /* Brick.m */; };
 		E5C37AE719E6D9C7007DCE0D /* BrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */; };
+		E5E5C2BC19EFE30400F7F137 /* akagi-sbit-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E520704419EFC89600FA698C /* akagi-sbit-webfont.ttf */; };
+		E5F8C2B819F1422300667EA8 /* akagi-sb-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5F8C2B719F1422300667EA8 /* akagi-sb-webfont.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,25 +36,27 @@
 		069ADEC811D7B2F7FE4FBC55 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B0BF910B080C87733BB8FBDA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DCCF218DB1AEE51BE31A46FD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E506B0A819F1682E005BCB7C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		E510FD5019E6BC2F004B8AF5 /* BF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E510FD5419E6BC2F004B8AF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E510FD5519E6BC2F004B8AF5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E510FD5719E6BC2F004B8AF5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E510FD5819E6BC2F004B8AF5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E510FD5E19E6BC2F004B8AF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E510FD6019E6BC2F004B8AF5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E510FD6319E6BC2F004B8AF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E510FD6919E6BC2F004B8AF5 /* BFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E510FD6E19E6BC2F004B8AF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E510FD6F19E6BC2F004B8AF5 /* BFTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTests.m; sourceTree = "<group>"; };
 		E510FD7919E6C00F004B8AF5 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
 		E510FD7A19E6C00F004B8AF5 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
+		E520704419EFC89600FA698C /* akagi-sbit-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "akagi-sbit-webfont.ttf"; sourceTree = "<group>"; };
 		E544663219E6EADD003C0CB7 /* BrickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickView.h; sourceTree = "<group>"; };
 		E544663319E6EADD003C0CB7 /* BrickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickView.m; sourceTree = "<group>"; };
 		E590896519E6E676008A2821 /* Brick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brick.h; sourceTree = "<group>"; };
 		E590896619E6E676008A2821 /* Brick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brick.m; sourceTree = "<group>"; };
 		E5C37AE519E6D9C7007DCE0D /* BrickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BrickViewController.h; path = ../BrickViewController.h; sourceTree = "<group>"; };
 		E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BrickViewController.m; path = ../BrickViewController.m; sourceTree = "<group>"; };
+		E5F8C2B719F1422300667EA8 /* akagi-sb-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "akagi-sb-webfont.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,20 +118,20 @@
 		E510FD5219E6BC2F004B8AF5 /* BF */ = {
 			isa = PBXGroup;
 			children = (
+				E520704619EFCC9F00FA698C /* Resources */,
 				E5C37AE519E6D9C7007DCE0D /* BrickViewController.h */,
 				E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */,
-				E510FD5719E6BC2F004B8AF5 /* AppDelegate.h */,
-				E510FD5819E6BC2F004B8AF5 /* AppDelegate.m */,
-				E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */,
-				E510FD6019E6BC2F004B8AF5 /* Images.xcassets */,
-				E510FD6219E6BC2F004B8AF5 /* LaunchScreen.xib */,
-				E510FD5319E6BC2F004B8AF5 /* Supporting Files */,
-				E510FD7919E6C00F004B8AF5 /* AuthViewController.h */,
-				E510FD7A19E6C00F004B8AF5 /* AuthViewController.m */,
 				E590896519E6E676008A2821 /* Brick.h */,
 				E590896619E6E676008A2821 /* Brick.m */,
 				E544663219E6EADD003C0CB7 /* BrickView.h */,
 				E544663319E6EADD003C0CB7 /* BrickView.m */,
+				E510FD7919E6C00F004B8AF5 /* AuthViewController.h */,
+				E510FD7A19E6C00F004B8AF5 /* AuthViewController.m */,
+				E510FD5719E6BC2F004B8AF5 /* AppDelegate.h */,
+				E510FD5819E6BC2F004B8AF5 /* AppDelegate.m */,
+				E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */,
+				E510FD6219E6BC2F004B8AF5 /* LaunchScreen.xib */,
+				E510FD5319E6BC2F004B8AF5 /* Supporting Files */,
 			);
 			path = BF;
 			sourceTree = "<group>";
@@ -156,6 +160,24 @@
 				E510FD6E19E6BC2F004B8AF5 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E520704319EFC72E00FA698C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E520704419EFC89600FA698C /* akagi-sbit-webfont.ttf */,
+				E5F8C2B719F1422300667EA8 /* akagi-sb-webfont.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		E520704619EFCC9F00FA698C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E506B0A819F1682E005BCB7C /* Images.xcassets */,
+				E520704319EFC72E00FA698C /* Fonts */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,9 +262,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5E5C2BC19EFE30400F7F137 /* akagi-sbit-webfont.ttf in Resources */,
+				E506B0A919F1682E005BCB7C /* Images.xcassets in Resources */,
 				E510FD5F19E6BC2F004B8AF5 /* Main.storyboard in Resources */,
 				E510FD6419E6BC2F004B8AF5 /* LaunchScreen.xib in Resources */,
-				E510FD6119E6BC2F004B8AF5 /* Images.xcassets in Resources */,
+				E5F8C2B819F1422300667EA8 /* akagi-sb-webfont.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

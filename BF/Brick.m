@@ -13,16 +13,24 @@
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithName:(NSString *)name
-                       image:(UIImage *)image
-                         age:(NSUInteger)age
+                       //image:(UIImage *)image
+                         url:(NSURL *)url
+                 creatorName:(NSString *)creatorName
+                  creatorPic:(NSURL *)creatorPic
+                        type:(NSString *)type
+                   thumbnail:(NSURL *)thumbnail
        numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
      numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
               numberOfPhotos:(NSUInteger)numberOfPhotos {
     self = [super init];
     if (self) {
         _name = name;
-        _image = image;
-        _age = age;
+        //_image = image;
+        _url = url;
+        _creatorName = creatorName;
+        _creatorPic = creatorPic;
+        _type = type;
+        _thumbnail = thumbnail;
         _numberOfSharedFriends = numberOfSharedFriends;
         _numberOfSharedInterests = numberOfSharedInterests;
         _numberOfPhotos = numberOfPhotos;

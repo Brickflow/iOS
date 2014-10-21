@@ -16,5 +16,6 @@
 @property (nonatomic, strong) BrickView *frontCardView;
 @property (nonatomic, strong) BrickView *backCardView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControll;
 
 @end

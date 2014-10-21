@@ -24,7 +24,7 @@
     //authenticatedUser: check from NSUserDefaults User credential if its present then set your navigation flow accordingly
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults valueForKey:@"token"];
-    NSLog(@"Token %@", token);
+    //NSLog(@"Token %@", token);
     
     if (token)
     {

@@ -17,10 +17,43 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 @interface BrickViewController ()
 @property (nonatomic, strong) NSMutableArray *bricks;
 @property (nonatomic, strong) NSString *tag;
+@property (nonatomic, strong) NSURL *feedUrl;
+- (IBAction)segmentedControlAction:(id)sender;
 
 @end
 
 @implementation BrickViewController
+@synthesize segmentedControll;
+
+-(IBAction) segmentedControlAction:(id)sender
+{
+    if(segmentedControll.selectedSegmentIndex == 0){
+        
+        NSString *feedString = @"http://brickflow.com/feed/trending";
+        
+        _feedUrl = [NSURL URLWithString:feedString];
+        
+        [self.frontCardView removeFromSuperview];
+        [self.backCardView removeFromSuperview];
+        
+        _bricks = [[self defaultBricks] mutableCopy];
+        
+        // Display the first ChoosePersonView in front. Users can swipe to indicate
+        // whether they like or dislike the person displayed.
+        self.frontCardView = [self popBrickViewWithFrame:[self frontCardViewFrame]];
+        [self.view addSubview:self.frontCardView];
+        
+        // Display the second ChoosePersonView in back. This view controller uses
+        // the MDCSwipeToChooseDelegate protocol methods to update the front and
+        // back views after each user swipe.
+        self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]];
+        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    }
+    if(segmentedControll.selectedSegmentIndex == 1){
+        [self.frontCardView removeFromSuperview];
+        [self.backCardView removeFromSuperview];
+    }
+}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -29,9 +62,13 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     NSLog(@"%@", searchBar.text);
     self.tag = searchBar.text;
     
+    NSString *feedString= @"http://brickflow.com/search?q=";
+    feedString = [feedString stringByAppendingString:self.tag];
+    
+    _feedUrl = [NSURL URLWithString:feedString];
+    
     [self.frontCardView removeFromSuperview];
     [self.backCardView removeFromSuperview];
-
     
     _bricks = [[self defaultBricks] mutableCopy];
     // Do any additional setup after loading the view.
@@ -48,17 +85,47 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
 }
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+//    self.navigationController.navigationBar.hidden=TRUE;
+//    CGRect r=self.view.frame;
+//    r.origin.y=-44;
+//    r.size.height+=44;
+//    
+//    self.view.frame=r;
+    
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    //This'll Hide The cancelButton with Animation
+    [searchBar setShowsCancelButton:NO animated:YES];
+//    self.navigationController.navigationBar.hidden=FALSE;
+//    CGRect r=self.view.frame;
+//    r.origin.y=0;
+//    r.size.height-=44;
+//    
+//    self.view.frame=r;
+    [searchBar resignFirstResponder];
+
+
+    //remaining Code'll go here
+}
+
 - (NSArray *)defaultBricks {
     
     // Prepare the link that is going to be used on the GET request
-    NSString *string= @"http://brickflow.com/search?q=";
-    string = [string stringByAppendingString:self.tag];
-    
-    NSURL * url = [[NSURL alloc] initWithString:string];
-    
+
     
     // Prepare the request object
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:_feedUrl
                                             cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                             timeoutInterval:30];
     
@@ -81,30 +148,35 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     NSArray* resultsBricks = results[@"bricks"];
     
-    NSMutableArray *bricks = [NSMutableArray arrayWithCapacity:50];
-    
-    int count = 0;
+    NSMutableArray *bricks = [NSMutableArray arrayWithCapacity:100];
     
     for(NSDictionary *item in resultsBricks) {
-        //NSLog(@"Item: %@", item);
-        //NSLog(@"Url: %@", item[@"url"]);
-        if (count < 5)
-        {
-            NSURL * imageURL = [NSURL URLWithString:item[@"url"]];
-            NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
-            
-            
-            Brick *card = [[Brick alloc] initWithName:item[@"provider"]
-                                                  image:[UIImage imageWithData:imageData]
-                                                    age:15
-                                  numberOfSharedFriends:3
-                                numberOfSharedInterests:2
-                                         numberOfPhotos:1];
-            
-            [bricks addObject: card];
-        }
+
+            //NSLog(@"Url: %@", item[@"url"]);
+
+            NSURL * imageUrl = [NSURL URLWithString:item[@"url"]];
+            NSURL * creatorPicUrl = [NSURL URLWithString:item[@"creatorProfilePicture"]];
+            NSURL * thumbnailUrl = [NSURL URLWithString:item[@"thumbnail"]];
+            //NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
         
-        count++;
+            //NSLog(@"%@", imageURL);
+            //NSLog(@"%@", [imageURL pathExtension]);
+
+            //if ([item[@"type"] isEqual:@"image"])
+            //{
+                Brick *card = [[Brick alloc] initWithName:item[@"provider"]
+                                                 //     image:[UIImage imageWithData:imageData]
+                                                      url:imageUrl
+                                              creatorName:item[@"creatorName"]
+                                               creatorPic:creatorPicUrl
+                                                     type:item[@"type"]
+                                                thumbnail:thumbnailUrl
+                                      numberOfSharedFriends:3
+                                    numberOfSharedInterests:2
+                                             numberOfPhotos:1];
+                
+                [bricks addObject: card];
+            //}
     }
     
     return bricks;
@@ -113,11 +185,32 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //self.tag = @"mouse";
+    self.tag = @"EmilyRatajkowski";
+    
+    NSString *feedString= @"http://brickflow.com/search?q=";
+    feedString = [feedString stringByAppendingString:self.tag];
+    
+    feedString = @"http://brickflow.com/feed/trending";
+    
+    //NSURL * url = [[NSURL alloc] initWithString:string];
+    _feedUrl = [NSURL URLWithString:feedString];
+    
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:_searchBar action:@selector(resignFirstResponder)]];
+    
     UIColor *colour = [[UIColor alloc]initWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1.0];
-    self.view.backgroundColor = colour;
+//    self.view.backgroundColor = colour;
+    //self.navigationController.view.backgroundColor = colour;
     
     [self.searchBar setDelegate:self];
-    self.tag = @"mouse";
+    self.searchBar.barTintColor = colour;
+    self.searchBar.layer.borderWidth = 1;
+    self.searchBar.layer.borderColor = [colour CGColor];
+
+
+    //self.searchBar.hidden=YES;
+    
+
     _bricks = [[self defaultBricks] mutableCopy];
     // Do any additional setup after loading the view.
     
@@ -140,8 +233,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 60.f;
-    CGFloat bottomPadding = 200.f;
+    CGFloat topPadding = 150.f;
+    CGFloat bottomPadding = 220.f;
     return CGRectMake(horizontalPadding,
                       topPadding,
                       CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
@@ -170,7 +263,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     options.threshold = 160.f;
     options.likedText = @"Post";
     options.likedColor = [UIColor greenColor];
-    options.nopeText = @"Reject";
+    options.nopeText = @"Nope";
     options.nopeColor = [UIColor redColor];
 
     options.onPan = ^(MDCPanState *state){
@@ -203,7 +296,20 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
         NSLog(@"Photo saved!");
     }
     
+    if ([self.frontCardView.brick.type isEqual: @"video"])
+    {
+        [self.frontCardView.player stop];
+    }
+        
     self.frontCardView = self.backCardView;
+ 
+    if ([self.frontCardView.brick.type isEqual: @"video"])
+    {
+        [self.frontCardView.imageView removeFromSuperview];
+        [self.frontCardView.player prepareToPlay];
+        [self.frontCardView.player play];
+    }
+        
     if ((self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
         self.backCardView.alpha = 0.f;
@@ -256,6 +362,11 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 // Programmatically "likes" the front card view.
 - (void)likeFrontCardView {
     [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning {

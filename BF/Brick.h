@@ -12,15 +12,23 @@
 @interface Brick : NSObject
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) NSUInteger age;
+//@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, retain) NSURL *url;
+@property (nonatomic, copy) NSString *creatorName;
+@property (nonatomic, retain) NSURL *creatorPic;
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, retain) NSURL *thumbnail;
 @property (nonatomic, assign) NSUInteger numberOfSharedFriends;
 @property (nonatomic, assign) NSUInteger numberOfSharedInterests;
 @property (nonatomic, assign) NSUInteger numberOfPhotos;
 
 - (instancetype)initWithName:(NSString *)name
-                       image:(UIImage *)image
-                         age:(NSUInteger)age
+//                       image:(UIImage *)image
+                         url:(NSURL *)url
+                 creatorName:(NSString *)creatorName
+                  creatorPic:(NSURL *)creatorPic
+                        type:(NSString *)type
+                   thumbnail:(NSURL *)thumbnail
        numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
      numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
               numberOfPhotos:(NSUInteger)numberOfPhotos;
