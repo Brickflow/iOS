@@ -27,15 +27,12 @@
 }
 
 - (void)auth {
-    [[TMAPIClient sharedInstance] authenticate:@"tumblrauth" callback:^(NSError *error) {
-        if (error)
+    [[TMAPIClient sharedInstance] authenticate:@"brickflow" callback:^(NSError *error) {
+        if (error) {
             NSLog(@"Authentication failed: %@ %@", error, [error description]);
-        else
-            NSLog(@"Authentication successful!");
-            NSLog(@"%@", [TMAPIClient sharedInstance].OAuthToken);
-            NSLog(@"%@", [TMAPIClient sharedInstance].OAuthTokenSecret);
-        
-            TMAPIClient *client          = [TMAPIClient sharedInstance];
+        }
+        else {
+            TMAPIClient *client = [TMAPIClient sharedInstance];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             [defaults setValue:client.OAuthToken forKey:@"token"];
             [defaults setValue:client.OAuthTokenSecret forKey:@"secret"];
@@ -44,13 +41,8 @@
             AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
         
             appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-        
+        }
     }];
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning {

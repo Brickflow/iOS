@@ -38,9 +38,11 @@
     }
     
     [TMAPIClient sharedInstance].OAuthConsumerKey =
-        @"lSmUjeH9z2sl9HTr2VtzYIcJ7Q0Yyl1jMmsG9MVCHSQI7E8a4t";
+        //@"lSmUjeH9z2sl9HTr2VtzYIcJ7Q0Yyl1jMmsG9MVCHSQI7E8a4t";
+        @"6EI0oz8lW2cAVx0WXQKe7ZVAIJIodHFFvb1HfNu0DaYEDENFw0";
     [TMAPIClient sharedInstance].OAuthConsumerSecret =
-        @"h5covcSDoQjpWoOxYi81nn6qLDoRPjAsJQozYSbsRPsX49ejop";
+        //@"h5covcSDoQjpWoOxYi81nn6qLDoRPjAsJQozYSbsRPsX49ejop";
+        @"fY8uxfhJoXOgQYuy72yoJ0N1SgKIT6laokooEXOx24AJu7a8xm";
     
     return YES;
 }

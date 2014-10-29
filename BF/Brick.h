@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSString *name;
 //@property (nonatomic, strong) UIImage *image;
 @property (nonatomic, retain) NSURL *url;
+@property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *creatorName;
 @property (nonatomic, retain) NSURL *creatorPic;
 @property (nonatomic, copy) NSString *type;
@@ -25,6 +26,7 @@
 - (instancetype)initWithName:(NSString *)name
 //                       image:(UIImage *)image
                          url:(NSURL *)url
+                          id:(NSString *)id
                  creatorName:(NSString *)creatorName
                   creatorPic:(NSURL *)creatorPic
                         type:(NSString *)type

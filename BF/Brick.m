@@ -15,6 +15,7 @@
 - (instancetype)initWithName:(NSString *)name
                        //image:(UIImage *)image
                          url:(NSURL *)url
+                          id:(NSString *)id
                  creatorName:(NSString *)creatorName
                   creatorPic:(NSURL *)creatorPic
                         type:(NSString *)type
@@ -27,6 +28,7 @@
         _name = name;
         //_image = image;
         _url = url;
+        _id = id;
         _creatorName = creatorName;
         _creatorPic = creatorPic;
         _type = type;

@@ -16,6 +16,7 @@
 		E510FD7019E6BC2F004B8AF5 /* BFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD6F19E6BC2F004B8AF5 /* BFTests.m */; };
 		E510FD7B19E6C00F004B8AF5 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD7A19E6C00F004B8AF5 /* AuthViewController.m */; };
 		E544663419E6EADD003C0CB7 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = E544663319E6EADD003C0CB7 /* BrickView.m */; };
+		E559D00419FC5B9C00B23A29 /* Launch Screen2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */; };
 		E590896719E6E676008A2821 /* Brick.m in Sources */ = {isa = PBXBuildFile; fileRef = E590896619E6E676008A2821 /* Brick.m */; };
 		E5C37AE719E6D9C7007DCE0D /* BrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */; };
 		E5E5C2BC19EFE30400F7F137 /* akagi-sbit-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E520704419EFC89600FA698C /* akagi-sbit-webfont.ttf */; };
@@ -52,6 +53,7 @@
 		E520704419EFC89600FA698C /* akagi-sbit-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "akagi-sbit-webfont.ttf"; sourceTree = "<group>"; };
 		E544663219E6EADD003C0CB7 /* BrickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickView.h; sourceTree = "<group>"; };
 		E544663319E6EADD003C0CB7 /* BrickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickView.m; sourceTree = "<group>"; };
+		E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen2.xib"; sourceTree = "<group>"; };
 		E590896519E6E676008A2821 /* Brick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brick.h; sourceTree = "<group>"; };
 		E590896619E6E676008A2821 /* Brick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brick.m; sourceTree = "<group>"; };
 		E5C37AE519E6D9C7007DCE0D /* BrickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BrickViewController.h; path = ../BrickViewController.h; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */,
 				E510FD6219E6BC2F004B8AF5 /* LaunchScreen.xib */,
 				E510FD5319E6BC2F004B8AF5 /* Supporting Files */,
+				E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */,
 			);
 			path = BF;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			files = (
 				E5E5C2BC19EFE30400F7F137 /* akagi-sbit-webfont.ttf in Resources */,
 				E506B0A919F1682E005BCB7C /* Images.xcassets in Resources */,
+				E559D00419FC5B9C00B23A29 /* Launch Screen2.xib in Resources */,
 				E510FD5F19E6BC2F004B8AF5 /* Main.storyboard in Resources */,
 				E510FD6419E6BC2F004B8AF5 /* LaunchScreen.xib in Resources */,
 				E5F8C2B819F1422300667EA8 /* akagi-sb-webfont.ttf in Resources */,
@@ -448,6 +452,7 @@
 				INFOPLIST_FILE = BF/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -459,6 +464,7 @@
 				INFOPLIST_FILE = BF/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

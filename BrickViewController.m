@@ -10,79 +10,93 @@
 #import "Brick.h"
 #import "BrickView.h"
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
-
-static const CGFloat ChoosePersonButtonHorizontalPadding = 40.f;
-static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
+#import "AFNetworking.h"
 
 @interface BrickViewController ()
 @property (nonatomic, strong) NSMutableArray *bricks;
+@property (nonatomic, strong) NSMutableData *response;
 @property (nonatomic, strong) NSString *tag;
 @property (nonatomic, strong) NSURL *feedUrl;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)segmentedControlAction:(id)sender;
+- (IBAction)searchAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *nopeButton;
+- (IBAction)nopeButtonTouch:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+- (IBAction)likeButtonTouch:(id)sender;
+
+@property (strong,nonatomic) UIWindow *dropdown;
+@property (strong,nonatomic) UILabel *label;
 
 @end
 
 @implementation BrickViewController
 @synthesize segmentedControll;
+@synthesize activityIndicator;
+
+-(IBAction) searchAction:(id)sender
+{
+    self.searchBar.hidden=NO;
+    [self.searchBar becomeFirstResponder];
+}
+
+- (void)loadFeed
+{
+    NSString *feedString;
+    if(segmentedControll.selectedSegmentIndex == 0){
+        feedString = @"http://api.brickflow.com/feed/trending?accessToken=";
+        
+    }
+    if(segmentedControll.selectedSegmentIndex == 1){
+        feedString = @"http://api.brickflow.com/feed/your?accessToken=";
+    }
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults valueForKey:@"token"];
+    
+    feedString = [feedString stringByAppendingString:token];
+    
+    [self startLoad];
+    
+    _feedUrl = [NSURL URLWithString:feedString];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+    [manager GET:feedString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject[@"bricks"]);
+        [self loadBricks:responseObject[@"bricks"]];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
 
 -(IBAction) segmentedControlAction:(id)sender
 {
-    if(segmentedControll.selectedSegmentIndex == 0){
-        
-        NSString *feedString = @"http://brickflow.com/feed/trending";
-        
-        _feedUrl = [NSURL URLWithString:feedString];
-        
-        [self.frontCardView removeFromSuperview];
-        [self.backCardView removeFromSuperview];
-        
-        _bricks = [[self defaultBricks] mutableCopy];
-        
-        // Display the first ChoosePersonView in front. Users can swipe to indicate
-        // whether they like or dislike the person displayed.
-        self.frontCardView = [self popBrickViewWithFrame:[self frontCardViewFrame]];
-        [self.view addSubview:self.frontCardView];
-        
-        // Display the second ChoosePersonView in back. This view controller uses
-        // the MDCSwipeToChooseDelegate protocol methods to update the front and
-        // back views after each user swipe.
-        self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]];
-        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
-    }
-    if(segmentedControll.selectedSegmentIndex == 1){
-        [self.frontCardView removeFromSuperview];
-        [self.backCardView removeFromSuperview];
-    }
+    [self loadFeed];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-
+    
     NSLog(@"%@", searchBar.text);
     self.tag = searchBar.text;
+    self.tag = [self.tag stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     
-    NSString *feedString= @"http://brickflow.com/search?q=";
+    NSString *feedString= @"http://api.brickflow.com/feed/search/";
     feedString = [feedString stringByAppendingString:self.tag];
+    
+    [self startLoad];
     
     _feedUrl = [NSURL URLWithString:feedString];
     
-    [self.frontCardView removeFromSuperview];
-    [self.backCardView removeFromSuperview];
-    
-    _bricks = [[self defaultBricks] mutableCopy];
-    // Do any additional setup after loading the view.
-    
-    // Display the first ChoosePersonView in front. Users can swipe to indicate
-    // whether they like or dislike the person displayed.
-    self.frontCardView = [self popBrickViewWithFrame:[self frontCardViewFrame]];
-    [self.view addSubview:self.frontCardView];
-    
-    // Display the second ChoosePersonView in back. This view controller uses
-    // the MDCSwipeToChooseDelegate protocol methods to update the front and
-    // back views after each user swipe.
-    self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]];
-    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:feedString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self loadBricks:responseObject[@"bricks"]];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -100,119 +114,59 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
+    [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:NO animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
     //This'll Hide The cancelButton with Animation
-    [searchBar setShowsCancelButton:NO animated:YES];
-//    self.navigationController.navigationBar.hidden=FALSE;
-//    CGRect r=self.view.frame;
-//    r.origin.y=0;
-//    r.size.height-=44;
-//    
-//    self.view.frame=r;
+    self.searchBar.hidden=YES;
+
     [searchBar resignFirstResponder];
 
+    [self loadFeed];
 
     //remaining Code'll go here
 }
 
-- (NSArray *)defaultBricks {
+- (void)startLoad {
+    [self.frontCardView removeFromSuperview];
+    [self.backCardView removeFromSuperview];
     
-    // Prepare the link that is going to be used on the GET request
-
+    self.nopeButton.hidden = YES;
+    self.likeButton.hidden = YES;
     
-    // Prepare the request object
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:_feedUrl
-                                            cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                            timeoutInterval:30];
-    
-    // Prepare the variables for the JSON response
-    NSData *urlData;
-    NSURLResponse *response;
-    NSError *error;
-    
-    // Make synchronous request
-    urlData = [NSURLConnection sendSynchronousRequest:urlRequest
-                                    returningResponse:&response
-                                                error:&error];
-    
-    NSLog(@"LOADED");
-    
-    NSDictionary* results = [NSJSONSerialization
-                             JSONObjectWithData:urlData
-                             options:0
-                             error:&error];
-    
-    NSArray* resultsBricks = results[@"bricks"];
-    
-    NSMutableArray *bricks = [NSMutableArray arrayWithCapacity:100];
-    
-    for(NSDictionary *item in resultsBricks) {
-
-            //NSLog(@"Url: %@", item[@"url"]);
-
-            NSURL * imageUrl = [NSURL URLWithString:item[@"url"]];
-            NSURL * creatorPicUrl = [NSURL URLWithString:item[@"creatorProfilePicture"]];
-            NSURL * thumbnailUrl = [NSURL URLWithString:item[@"thumbnail"]];
-            //NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
-        
-            //NSLog(@"%@", imageURL);
-            //NSLog(@"%@", [imageURL pathExtension]);
-
-            //if ([item[@"type"] isEqual:@"image"])
-            //{
-                Brick *card = [[Brick alloc] initWithName:item[@"provider"]
-                                                 //     image:[UIImage imageWithData:imageData]
-                                                      url:imageUrl
-                                              creatorName:item[@"creatorName"]
-                                               creatorPic:creatorPicUrl
-                                                     type:item[@"type"]
-                                                thumbnail:thumbnailUrl
-                                      numberOfSharedFriends:3
-                                    numberOfSharedInterests:2
-                                             numberOfPhotos:1];
-                
-                [bricks addObject: card];
-            //}
-    }
-    
-    return bricks;
+    [activityIndicator startAnimating];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)loadBricks:(NSArray *)results {
+    NSMutableArray *bricks = [NSMutableArray arrayWithCapacity:100];
     
-    //self.tag = @"mouse";
-    self.tag = @"EmilyRatajkowski";
+    for(NSDictionary *item in results) {
+        
+        NSURL * imageUrl = [NSURL URLWithString:item[@"url"]];
+        NSURL * creatorPicUrl = [NSURL URLWithString:item[@"creatorProfilePicture"]];
+        NSURL * thumbnailUrl = [NSURL URLWithString:item[@"thumbnail"]];
+        
+        Brick *card = [[Brick alloc] initWithName:item[@"provider"]
+                       //     image:[UIImage imageWithData:imageData]
+                                              url:imageUrl
+                                               id:item[@"_id"]
+                                      creatorName:item[@"creatorName"]
+                                       creatorPic:creatorPicUrl
+                                             type:item[@"type"]
+                                        thumbnail:thumbnailUrl
+                            numberOfSharedFriends:3
+                          numberOfSharedInterests:2
+                                   numberOfPhotos:1];
+        
+        [bricks addObject: card];
+    }
     
-    NSString *feedString= @"http://brickflow.com/search?q=";
-    feedString = [feedString stringByAppendingString:self.tag];
+    _bricks = [bricks mutableCopy];
     
-    feedString = @"http://brickflow.com/feed/trending";
-    
-    //NSURL * url = [[NSURL alloc] initWithString:string];
-    _feedUrl = [NSURL URLWithString:feedString];
-    
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:_searchBar action:@selector(resignFirstResponder)]];
-    
-    UIColor *colour = [[UIColor alloc]initWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1.0];
-//    self.view.backgroundColor = colour;
-    //self.navigationController.view.backgroundColor = colour;
-    
-    [self.searchBar setDelegate:self];
-    self.searchBar.barTintColor = colour;
-    self.searchBar.layer.borderWidth = 1;
-    self.searchBar.layer.borderColor = [colour CGColor];
-
-
-    //self.searchBar.hidden=YES;
-    
-
-    _bricks = [[self defaultBricks] mutableCopy];
-    // Do any additional setup after loading the view.
+    [activityIndicator stopAnimating];
     
     // Display the first ChoosePersonView in front. Users can swipe to indicate
     // whether they like or dislike the person displayed.
@@ -227,13 +181,27 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     // Add buttons to programmatically swipe the view left or right.
     // See the `nopeFrontCardView` and `likeFrontCardView` methods.
-    [self constructNopeButton];
-    [self constructLikedButton];
+    self.nopeButton.hidden = NO;
+    self.likeButton.hidden = NO;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self startLoad];
+    
+    [self loadFeed];
+    
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:_searchBar action:@selector(resignFirstResponder)]];
+    
+    [self.searchBar setDelegate:self];
+
+    self.searchBar.hidden=YES;
 }
 
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 150.f;
+    CGFloat topPadding = 100.f;
     CGFloat bottomPadding = 220.f;
     return CGRectMake(horizontalPadding,
                       topPadding,
@@ -294,6 +262,24 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
         NSLog(@"Photo deleted!");
     } else {
         NSLog(@"Photo saved!");
+        // Create the request.
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *token = [defaults valueForKey:@"token"];
+        
+        NSString *shareUrl= [NSString stringWithFormat:@"http://api.brickflow.com/blog/%1$@/share/%2$@?accessToken=%3$@",
+                             @"captainjudikdavid",
+                             self.frontCardView.brick.id,
+                             token
+                             ];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"type": @"post"};
+        [manager POST:shareUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
     }
     
     if ([self.frontCardView.brick.type isEqual: @"video"])
@@ -323,52 +309,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     }
 }
 
-- (void)constructNopeButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    UIImage *image = [UIImage imageNamed:@"reject"];
-    button.frame = CGRectMake(ChoosePersonButtonHorizontalPadding,
-                              CGRectGetMaxY(self.frontCardView.frame) + ChoosePersonButtonVerticalPadding,
-                              image.size.width,
-                              image.size.height);
-    [button setBackgroundImage:image forState:UIControlStateNormal];
-
-    [button addTarget:self
-               action:@selector(nopeFrontCardView)
-     forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-}
-
-// Create and add the "like" button.
-- (void)constructLikedButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    UIImage *image = [UIImage imageNamed:@"post"];
-    button.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - image.size.width - ChoosePersonButtonHorizontalPadding,
-                              CGRectGetMaxY(self.frontCardView.frame) + ChoosePersonButtonVerticalPadding,
-                              image.size.width,
-                              image.size.height);
-    [button setBackgroundImage:image forState:UIControlStateNormal];
-
-    [button addTarget:self
-               action:@selector(likeFrontCardView)
-     forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-}
-
-// Programmatically "nopes" the front card view.
-- (void)nopeFrontCardView {
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
-}
-
-// Programmatically "likes" the front card view.
-- (void)likeFrontCardView {
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -383,5 +323,12 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)nopeButtonTouch:(id)sender {
+    [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
+}
+- (IBAction)likeButtonTouch:(id)sender {
+    [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
+}
 
 @end
