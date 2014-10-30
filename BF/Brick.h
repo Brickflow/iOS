@@ -19,9 +19,6 @@
 @property (nonatomic, retain) NSURL *creatorPic;
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, retain) NSURL *thumbnail;
-@property (nonatomic, assign) NSUInteger numberOfSharedFriends;
-@property (nonatomic, assign) NSUInteger numberOfSharedInterests;
-@property (nonatomic, assign) NSUInteger numberOfPhotos;
 
 - (instancetype)initWithName:(NSString *)name
 //                       image:(UIImage *)image
@@ -30,9 +27,6 @@
                  creatorName:(NSString *)creatorName
                   creatorPic:(NSURL *)creatorPic
                         type:(NSString *)type
-                   thumbnail:(NSURL *)thumbnail
-       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
-     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
-              numberOfPhotos:(NSUInteger)numberOfPhotos;
+                   thumbnail:(NSURL *)thumbnail;
 
 @end

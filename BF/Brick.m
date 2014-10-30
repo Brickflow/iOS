@@ -19,10 +19,7 @@
                  creatorName:(NSString *)creatorName
                   creatorPic:(NSURL *)creatorPic
                         type:(NSString *)type
-                   thumbnail:(NSURL *)thumbnail
-       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
-     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
-              numberOfPhotos:(NSUInteger)numberOfPhotos {
+                   thumbnail:(NSURL *)thumbnail {
     self = [super init];
     if (self) {
         _name = name;
@@ -33,9 +30,6 @@
         _creatorPic = creatorPic;
         _type = type;
         _thumbnail = thumbnail;
-        _numberOfSharedFriends = numberOfSharedFriends;
-        _numberOfSharedInterests = numberOfSharedInterests;
-        _numberOfPhotos = numberOfPhotos;
     }
     return self;
 }

@@ -75,7 +75,6 @@
                                     CGRectGetWidth(self.bounds),
                                     bottomHeight);
     _informationView = [[UIView alloc] initWithFrame:bottomFrame];
-    //_informationView.backgroundColor = [UIColor whiteColor];
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = _informationView.bounds;
@@ -89,9 +88,6 @@
     [self addSubview:_informationView];
     
     [self constructNameLabel];
-    //[self constructCameraImageLabelView];
-    //[self constructInterestsImageLabelView];
-    //[self constructFriendsImageLabelView];
 }
 
 - (void)constructNameLabel {
@@ -118,31 +114,6 @@
     UIImageView * providerIcon = [[UIImageView alloc] initWithFrame:CGRectMake(44, 24, 20, 20)];
     providerIcon.image = img;
     [_informationView addSubview:providerIcon];
-}
-
-- (void)constructCameraImageLabelView {
-//    CGFloat rightPadding = 10.f;
-//    UIImage *image = [UIImage imageNamed:@"camera"];
-//    _cameraImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetWidth(_informationView.bounds) - rightPadding
-//                                                      image:image
-//                                                       text:[@(_person.numberOfPhotos) stringValue]];
-//    [_informationView addSubview:_cameraImageLabelView];
-}
-
-- (void)constructInterestsImageLabelView {
-//    UIImage *image = [UIImage imageNamed:@"book"];
-//    _interestsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_cameraImageLabelView.frame)
-//                                                         image:image
-//                                                          text:[@(_person.numberOfPhotos) stringValue]];
-//    [_informationView addSubview:_interestsImageLabelView];
-}
-
-- (void)constructFriendsImageLabelView {
-//    UIImage *image = [UIImage imageNamed:@"group"];
-//    _friendsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_interestsImageLabelView.frame)
-//                                                       image:image
-//                                                        text:[@(_person.numberOfSharedFriends) stringValue]];
-//    [_informationView addSubview:_friendsImageLabelView];
 }
 
 @end
