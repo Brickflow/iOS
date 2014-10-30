@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DABC1DB839700FCA9C26221E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCF218DB1AEE51BE31A46FD /* libPods.a */; };
-		E506B0A919F1682E005BCB7C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E506B0A819F1682E005BCB7C /* Images.xcassets */; };
 		E510FD5619E6BC2F004B8AF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD5519E6BC2F004B8AF5 /* main.m */; };
 		E510FD5919E6BC2F004B8AF5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD5819E6BC2F004B8AF5 /* AppDelegate.m */; };
 		E510FD5F19E6BC2F004B8AF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */; };
@@ -17,6 +16,8 @@
 		E510FD7B19E6C00F004B8AF5 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E510FD7A19E6C00F004B8AF5 /* AuthViewController.m */; };
 		E544663419E6EADD003C0CB7 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = E544663319E6EADD003C0CB7 /* BrickView.m */; };
 		E559D00419FC5B9C00B23A29 /* Launch Screen2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */; };
+		E56A91981A025173000D40B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E56A91971A025173000D40B0 /* Images.xcassets */; };
+		E584C04B1A024ADD001B2703 /* BlogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E584C04A1A024ADD001B2703 /* BlogViewController.m */; };
 		E590896719E6E676008A2821 /* Brick.m in Sources */ = {isa = PBXBuildFile; fileRef = E590896619E6E676008A2821 /* Brick.m */; };
 		E5C37AE719E6D9C7007DCE0D /* BrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */; };
 		E5C65EF21A0150E900593183 /* Blog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C65EF11A0150E900593183 /* Blog.m */; };
@@ -39,7 +40,6 @@
 		069ADEC811D7B2F7FE4FBC55 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B0BF910B080C87733BB8FBDA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DCCF218DB1AEE51BE31A46FD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E506B0A819F1682E005BCB7C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		E510FD5019E6BC2F004B8AF5 /* BF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E510FD5419E6BC2F004B8AF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E510FD5519E6BC2F004B8AF5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -56,6 +56,9 @@
 		E544663219E6EADD003C0CB7 /* BrickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickView.h; sourceTree = "<group>"; };
 		E544663319E6EADD003C0CB7 /* BrickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickView.m; sourceTree = "<group>"; };
 		E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen2.xib"; sourceTree = "<group>"; };
+		E56A91971A025173000D40B0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E584C0491A024ADD001B2703 /* BlogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogViewController.h; sourceTree = "<group>"; };
+		E584C04A1A024ADD001B2703 /* BlogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlogViewController.m; sourceTree = "<group>"; };
 		E590896519E6E676008A2821 /* Brick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brick.h; sourceTree = "<group>"; };
 		E590896619E6E676008A2821 /* Brick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brick.m; sourceTree = "<group>"; };
 		E5C37AE519E6D9C7007DCE0D /* BrickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickViewController.h; sourceTree = "<group>"; };
@@ -126,6 +129,8 @@
 		E510FD5219E6BC2F004B8AF5 /* BF */ = {
 			isa = PBXGroup;
 			children = (
+				E56A91971A025173000D40B0 /* Images.xcassets */,
+				E510FD5319E6BC2F004B8AF5 /* Supporting Files */,
 				E520704619EFCC9F00FA698C /* Resources */,
 				E5C37AE519E6D9C7007DCE0D /* BrickViewController.h */,
 				E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */,
@@ -139,12 +144,13 @@
 				E510FD5819E6BC2F004B8AF5 /* AppDelegate.m */,
 				E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */,
 				E510FD6219E6BC2F004B8AF5 /* LaunchScreen.xib */,
-				E510FD5319E6BC2F004B8AF5 /* Supporting Files */,
 				E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */,
 				E5C65EF01A014DFE00593183 /* Blog.h */,
 				E5C65EF11A0150E900593183 /* Blog.m */,
 				E5C65EF31A01516C00593183 /* BlogView.h */,
 				E5C65EF41A01516C00593183 /* BlogView.m */,
+				E584C0491A024ADD001B2703 /* BlogViewController.h */,
+				E584C04A1A024ADD001B2703 /* BlogViewController.m */,
 			);
 			path = BF;
 			sourceTree = "<group>";
@@ -187,7 +193,6 @@
 		E520704619EFCC9F00FA698C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E506B0A819F1682E005BCB7C /* Images.xcassets */,
 				E520704319EFC72E00FA698C /* Fonts */,
 			);
 			name = Resources;
@@ -276,9 +281,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5E5C2BC19EFE30400F7F137 /* akagi-sbit-webfont.ttf in Resources */,
-				E506B0A919F1682E005BCB7C /* Images.xcassets in Resources */,
 				E559D00419FC5B9C00B23A29 /* Launch Screen2.xib in Resources */,
 				E510FD5F19E6BC2F004B8AF5 /* Main.storyboard in Resources */,
+				E56A91981A025173000D40B0 /* Images.xcassets in Resources */,
 				E510FD6419E6BC2F004B8AF5 /* LaunchScreen.xib in Resources */,
 				E5F8C2B819F1422300667EA8 /* akagi-sb-webfont.ttf in Resources */,
 			);
@@ -336,6 +341,7 @@
 				E544663419E6EADD003C0CB7 /* BrickView.m in Sources */,
 				E5C65EF21A0150E900593183 /* Blog.m in Sources */,
 				E5C65EF51A01516C00593183 /* BlogView.m in Sources */,
+				E584C04B1A024ADD001B2703 /* BlogViewController.m in Sources */,
 				E590896719E6E676008A2821 /* Brick.m in Sources */,
 				E510FD5919E6BC2F004B8AF5 /* AppDelegate.m in Sources */,
 				E510FD5619E6BC2F004B8AF5 /* main.m in Sources */,

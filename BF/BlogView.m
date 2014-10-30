@@ -11,12 +11,25 @@
 
 @implementation BlogView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+#pragma mark - Object Lifecycle
+
+- (instancetype)initWithFrame:(CGRect)frame
+                        blog:(Blog *)blog
+                      options:(MDCSwipeToChooseViewOptions *)options {
+    
+    self = [super initWithFrame:frame options:options];
+    if (self) {
+        _blog = blog;
+        self.imageView.backgroundColor = [UIColor whiteColor];
+        
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
+        UIViewAutoresizingFlexibleWidth |
+        UIViewAutoresizingFlexibleBottomMargin;
+        self.imageView.autoresizingMask = self.autoresizingMask;
+        
+        //[self constructInformationView];
+    }
+    return self;
 }
-*/
 
 @end

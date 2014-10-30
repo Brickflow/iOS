@@ -198,10 +198,10 @@
             </objects>
             <point key="canvasLocation" x="24" y="315"/>
         </scene>
-        <!--View Controller-->
+        <!--Blog View Controller-->
         <scene sceneID="32U-bl-uvZ">
             <objects>
-                <viewController id="dem-h9-CEv" sceneMemberID="viewController">
+                <viewController id="dem-h9-CEv" customClass="BlogViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uER-F2-rri"/>
                         <viewControllerLayoutGuide type="bottom" id="qrD-uq-2Nb"/>
@@ -209,8 +209,86 @@
                     <view key="view" contentMode="scaleToFill" id="2Vs-dR-A1Z">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5F-DE-UIv">
+                                <rect key="frame" x="-5" y="408" width="160" height="160"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Iq-pV-xtk">
+                                        <rect key="frame" x="30" y="30" width="100" height="100"/>
+                                        <state key="normal" backgroundImage="reject">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="nopeButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Wv3-P2-yav"/>
+                                            <action selector="nopeButtonTouch:" destination="dem-h9-CEv" eventType="touchUpInside" id="qlu-xg-1JW"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="7Iq-pV-xtk" secondAttribute="centerX" id="0aw-gr-e4I"/>
+                                    <constraint firstAttribute="height" constant="160" id="jgA-4J-WTr"/>
+                                    <constraint firstAttribute="centerY" secondItem="7Iq-pV-xtk" secondAttribute="centerY" id="orw-QI-PnZ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fId-ec-Jsa">
+                                <rect key="frame" x="160" y="408" width="160" height="160"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5TH-2B-fmz">
+                                        <rect key="frame" x="30" y="30" width="100" height="100"/>
+                                        <state key="normal" backgroundImage="add">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="likeButtonTouch:" destination="dem-h9-CEv" eventType="touchUpInside" id="SAh-aZ-2Ii"/>
+                                            <action selector="likeButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="qbx-e4-dEy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="5TH-2B-fmz" secondAttribute="centerX" id="E9F-jh-QqF"/>
+                                    <constraint firstAttribute="height" constant="160" id="PPY-QZ-hku"/>
+                                    <constraint firstItem="5TH-2B-fmz" firstAttribute="leading" secondItem="fId-ec-Jsa" secondAttribute="leading" constant="30" id="UGR-o1-Vz3"/>
+                                    <constraint firstAttribute="centerY" secondItem="5TH-2B-fmz" secondAttribute="centerY" id="gFi-Zr-Q35"/>
+                                </constraints>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2V5-Zw-lLa">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <color key="barTintColor" red="0.30196078431372547" green="0.25098039215686274" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Follow" id="nTD-fp-9Q2"/>
+                                </items>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="barPosition">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </navigationBar>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="67O-A9-cAm">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.88627450980392153" green="0.88627450980392153" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="2V5-Zw-lLa" firstAttribute="trailing" secondItem="fId-ec-Jsa" secondAttribute="trailing" id="0WZ-Hg-SEQ"/>
+                            <constraint firstItem="fId-ec-Jsa" firstAttribute="leading" secondItem="S5F-DE-UIv" secondAttribute="trailing" constant="5" id="7rO-Zm-Kqm"/>
+                            <constraint firstAttribute="trailing" secondItem="fId-ec-Jsa" secondAttribute="trailing" id="GEf-vi-Sab"/>
+                            <constraint firstItem="S5F-DE-UIv" firstAttribute="leading" secondItem="2Vs-dR-A1Z" secondAttribute="leadingMargin" constant="-21" id="GFR-rt-3NH"/>
+                            <constraint firstItem="2V5-Zw-lLa" firstAttribute="width" secondItem="2Vs-dR-A1Z" secondAttribute="width" id="P9C-fY-OHF"/>
+                            <constraint firstAttribute="centerX" secondItem="67O-A9-cAm" secondAttribute="centerX" id="QKu-38-oQp"/>
+                            <constraint firstItem="fId-ec-Jsa" firstAttribute="top" secondItem="S5F-DE-UIv" secondAttribute="top" id="SXG-q2-ASh"/>
+                            <constraint firstAttribute="centerY" secondItem="67O-A9-cAm" secondAttribute="centerY" id="SvG-O7-I6Y"/>
+                            <constraint firstItem="2V5-Zw-lLa" firstAttribute="top" secondItem="uER-F2-rri" secondAttribute="bottom" id="mOH-mm-drZ"/>
+                            <constraint firstItem="fId-ec-Jsa" firstAttribute="bottom" secondItem="qrD-uq-2Nb" secondAttribute="top" id="yaT-Dl-239"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="67O-A9-cAm" id="fVO-Lv-n8J"/>
+                        <outlet property="likeButton" destination="5TH-2B-fmz" id="sCT-fS-fD4"/>
+                        <outlet property="nopeButton" destination="7Iq-pV-xtk" id="Xj6-0L-bp8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8el-dw-t2f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -218,6 +296,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="100" height="100"/>
         <image name="logo" width="94" height="101"/>
         <image name="post" width="100" height="100"/>
         <image name="reject" width="100" height="100"/>

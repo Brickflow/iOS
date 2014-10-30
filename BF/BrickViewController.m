@@ -14,7 +14,6 @@
 
 @interface BrickViewController ()
 @property (nonatomic, strong) NSMutableArray *bricks;
-@property (nonatomic, strong) NSMutableData *response;
 @property (nonatomic, strong) NSString *tag;
 @property (nonatomic, strong) NSURL *feedUrl;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -185,9 +184,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self startLoad];
-    
+        
     [self loadFeed];
     
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:_searchBar action:@selector(resignFirstResponder)]];
