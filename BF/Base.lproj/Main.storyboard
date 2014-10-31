@@ -6,6 +6,12 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="akagi-bk-webfont.ttf">
+            <string>Akagi-Book</string>
+        </mutableArray>
+        <mutableArray key="akagi-eb-webfont.ttf">
+            <string>Akagi-ExtraBold</string>
+        </mutableArray>
         <mutableArray key="akagi-sb-webfont.ttf">
             <string>Akagi-SemiBold</string>
         </mutableArray>
@@ -211,7 +217,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5F-DE-UIv">
-                                <rect key="frame" x="-5" y="408" width="160" height="160"/>
+                                <rect key="frame" x="16" y="408" width="160" height="160"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Iq-pV-xtk">
                                         <rect key="frame" x="30" y="30" width="100" height="100"/>
@@ -226,12 +232,24 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="7Iq-pV-xtk" secondAttribute="centerX" id="0aw-gr-e4I"/>
-                                    <constraint firstAttribute="height" constant="160" id="jgA-4J-WTr"/>
                                     <constraint firstAttribute="centerY" secondItem="7Iq-pV-xtk" secondAttribute="centerY" id="orw-QI-PnZ"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="67O-A9-cAm">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ScG-UQ-cTk">
+                                <fontDescription key="fontDescription" name="Akagi-ExtraBold" family="Akagi" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvi-yz-121">
+                                <fontDescription key="fontDescription" name="Akagi-Book" family="Akagi" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fId-ec-Jsa">
-                                <rect key="frame" x="160" y="408" width="160" height="160"/>
+                                <rect key="frame" x="144" y="408" width="160" height="160"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5TH-2B-fmz">
                                         <rect key="frame" x="30" y="30" width="100" height="100"/>
@@ -246,8 +264,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="5TH-2B-fmz" secondAttribute="centerX" id="E9F-jh-QqF"/>
-                                    <constraint firstAttribute="height" constant="160" id="PPY-QZ-hku"/>
-                                    <constraint firstItem="5TH-2B-fmz" firstAttribute="leading" secondItem="fId-ec-Jsa" secondAttribute="leading" constant="30" id="UGR-o1-Vz3"/>
+                                    <constraint firstItem="5TH-2B-fmz" firstAttribute="top" secondItem="fId-ec-Jsa" secondAttribute="top" constant="30" id="XBw-hI-8Wi"/>
                                     <constraint firstAttribute="centerY" secondItem="5TH-2B-fmz" secondAttribute="centerY" id="gFi-Zr-Q35"/>
                                 </constraints>
                             </view>
@@ -266,22 +283,23 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </navigationBar>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="67O-A9-cAm">
-                                <rect key="frame" x="150" y="274" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.88627450980392153" green="0.88627450980392153" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="2V5-Zw-lLa" firstAttribute="trailing" secondItem="fId-ec-Jsa" secondAttribute="trailing" id="0WZ-Hg-SEQ"/>
-                            <constraint firstItem="fId-ec-Jsa" firstAttribute="leading" secondItem="S5F-DE-UIv" secondAttribute="trailing" constant="5" id="7rO-Zm-Kqm"/>
-                            <constraint firstAttribute="trailing" secondItem="fId-ec-Jsa" secondAttribute="trailing" id="GEf-vi-Sab"/>
-                            <constraint firstItem="S5F-DE-UIv" firstAttribute="leading" secondItem="2Vs-dR-A1Z" secondAttribute="leadingMargin" constant="-21" id="GFR-rt-3NH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fId-ec-Jsa" secondAttribute="trailing" id="7cy-gI-FuJ"/>
+                            <constraint firstItem="ScG-UQ-cTk" firstAttribute="leading" secondItem="S5F-DE-UIv" secondAttribute="leading" id="Ns4-5b-4Wb"/>
                             <constraint firstItem="2V5-Zw-lLa" firstAttribute="width" secondItem="2Vs-dR-A1Z" secondAttribute="width" id="P9C-fY-OHF"/>
                             <constraint firstAttribute="centerX" secondItem="67O-A9-cAm" secondAttribute="centerX" id="QKu-38-oQp"/>
-                            <constraint firstItem="fId-ec-Jsa" firstAttribute="top" secondItem="S5F-DE-UIv" secondAttribute="top" id="SXG-q2-ASh"/>
+                            <constraint firstItem="S5F-DE-UIv" firstAttribute="leading" secondItem="2Vs-dR-A1Z" secondAttribute="leadingMargin" id="Sk9-5h-pLS"/>
                             <constraint firstAttribute="centerY" secondItem="67O-A9-cAm" secondAttribute="centerY" id="SvG-O7-I6Y"/>
+                            <constraint firstItem="qrD-uq-2Nb" firstAttribute="top" secondItem="fId-ec-Jsa" secondAttribute="bottom" id="UpW-XS-70d"/>
+                            <constraint firstItem="qrD-uq-2Nb" firstAttribute="top" secondItem="S5F-DE-UIv" secondAttribute="bottom" id="VQm-Ce-asW"/>
+                            <constraint firstItem="fId-ec-Jsa" firstAttribute="top" secondItem="S5F-DE-UIv" secondAttribute="top" id="fGY-Bm-WRQ"/>
+                            <constraint firstItem="fId-ec-Jsa" firstAttribute="width" secondItem="2Vs-dR-A1Z" secondAttribute="width" multiplier="1:2" id="fcj-by-jnE"/>
                             <constraint firstItem="2V5-Zw-lLa" firstAttribute="top" secondItem="uER-F2-rri" secondAttribute="bottom" id="mOH-mm-drZ"/>
-                            <constraint firstItem="fId-ec-Jsa" firstAttribute="bottom" secondItem="qrD-uq-2Nb" secondAttribute="top" id="yaT-Dl-239"/>
+                            <constraint firstItem="ScG-UQ-cTk" firstAttribute="top" secondItem="2Vs-dR-A1Z" secondAttribute="top" id="new-8G-h3q"/>
+                            <constraint firstItem="2V5-Zw-lLa" firstAttribute="centerX" secondItem="67O-A9-cAm" secondAttribute="centerX" id="qNK-cq-FhD"/>
+                            <constraint firstItem="S5F-DE-UIv" firstAttribute="width" secondItem="2Vs-dR-A1Z" secondAttribute="width" multiplier="1:2" id="wh5-VD-XEz"/>
                         </constraints>
                     </view>
                     <connections>

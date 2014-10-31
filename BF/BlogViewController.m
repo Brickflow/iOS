@@ -56,6 +56,13 @@
         [self loadBricks:responseObject[@"blogs"]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        [_activityIndicator stopAnimating];
     }];
 }
 
@@ -64,7 +71,13 @@
     
     for(NSDictionary *item in results) {
         
-        Blog *card = [[Blog alloc] initWithName:item[@"name"]];
+        NSString *string = [NSString stringWithFormat:@"http://api.tumblr.com/v2/blog/%@.tumblr.com/avatar", item[@"name"]];
+        NSURL *url = [NSURL URLWithString:string];
+        
+        Blog *card = [[Blog alloc] initWithName:item[@"name"]
+                                          desc:item[@"description"]
+                                         image:url
+                                        images:item[@"images"]];
         
         [blogs addObject: card];
     }
@@ -126,8 +139,8 @@
 
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 100.f;
-    CGFloat bottomPadding = 220.f;
+    CGFloat topPadding = 80.f; //100
+    CGFloat bottomPadding = 230.f; //280
     return CGRectMake(horizontalPadding,
                       topPadding,
                       CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
@@ -140,6 +153,53 @@
                       frontFrame.origin.y + 10.f,
                       CGRectGetWidth(frontFrame),
                       CGRectGetHeight(frontFrame));
+}
+
+// This is called when a user didn't fully swipe left or right.
+- (void)viewDidCancelSwipe:(UIView *)view {
+    NSLog(@"Couldn't decide, huh?");
+}
+
+// This is called then a user swipes the view fully left or right.
+- (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
+    if (direction == MDCSwipeDirectionLeft) {
+        NSLog(@"Photo deleted!");
+    } else {
+        NSLog(@"Photo saved!");
+        // Create the request.
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *token = [defaults valueForKey:@"token"];
+        
+        NSLog(@"%@", self.frontCardView.blog.name);
+        token = @"4y9DAs7xKYxTzu7nfp7yR06zZSM3MvJp8koFhdmOey4Fwx9WcH";
+        
+        NSString *shareUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/follow/%1$@?accessToken=%2$@",
+                             self.frontCardView.blog.name,
+                             token
+                             ];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager POST:shareUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+    }
+    
+    self.frontCardView = self.backCardView;
+    
+    if ((self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]])) {
+        // Fade the back card into view.
+        self.backCardView.alpha = 0.f;
+        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             self.backCardView.alpha = 1.f;
+                         } completion:nil];
+    }
 }
 
 - (void)viewDidLoad {

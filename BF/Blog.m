@@ -12,10 +12,17 @@
 
 #pragma mark - Object Lifecycle
 
-- (instancetype)initWithName:(NSString *)name {
+- (instancetype)initWithName:(NSString *)name
+                        desc:(NSString *)desc
+                       image:(NSURL *)image
+                      images:(NSArray *)images
+{
     self = [super init];
     if (self) {
         _name = name;
+        _desc = desc;
+        _image = image;
+        _images = images;
     }
     return self;
 }

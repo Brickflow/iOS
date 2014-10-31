@@ -17,8 +17,10 @@
 		E544663419E6EADD003C0CB7 /* BrickView.m in Sources */ = {isa = PBXBuildFile; fileRef = E544663319E6EADD003C0CB7 /* BrickView.m */; };
 		E559D00419FC5B9C00B23A29 /* Launch Screen2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */; };
 		E56A91981A025173000D40B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E56A91971A025173000D40B0 /* Images.xcassets */; };
+		E56A919A1A029070000D40B0 /* akagi-eb-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E56A91991A029070000D40B0 /* akagi-eb-webfont.ttf */; };
 		E584C04B1A024ADD001B2703 /* BlogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E584C04A1A024ADD001B2703 /* BlogViewController.m */; };
 		E590896719E6E676008A2821 /* Brick.m in Sources */ = {isa = PBXBuildFile; fileRef = E590896619E6E676008A2821 /* Brick.m */; };
+		E5B369271A02B08F00998B45 /* akagi-bk-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5B369261A02B08F00998B45 /* akagi-bk-webfont.ttf */; };
 		E5C37AE719E6D9C7007DCE0D /* BrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */; };
 		E5C65EF21A0150E900593183 /* Blog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C65EF11A0150E900593183 /* Blog.m */; };
 		E5C65EF51A01516C00593183 /* BlogView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C65EF41A01516C00593183 /* BlogView.m */; };
@@ -57,10 +59,12 @@
 		E544663319E6EADD003C0CB7 /* BrickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickView.m; sourceTree = "<group>"; };
 		E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen2.xib"; sourceTree = "<group>"; };
 		E56A91971A025173000D40B0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E56A91991A029070000D40B0 /* akagi-eb-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "akagi-eb-webfont.ttf"; sourceTree = "<group>"; };
 		E584C0491A024ADD001B2703 /* BlogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogViewController.h; sourceTree = "<group>"; };
 		E584C04A1A024ADD001B2703 /* BlogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlogViewController.m; sourceTree = "<group>"; };
 		E590896519E6E676008A2821 /* Brick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brick.h; sourceTree = "<group>"; };
 		E590896619E6E676008A2821 /* Brick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brick.m; sourceTree = "<group>"; };
+		E5B369261A02B08F00998B45 /* akagi-bk-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "akagi-bk-webfont.ttf"; sourceTree = "<group>"; };
 		E5C37AE519E6D9C7007DCE0D /* BrickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickViewController.h; sourceTree = "<group>"; };
 		E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickViewController.m; sourceTree = "<group>"; };
 		E5C65EF01A014DFE00593183 /* Blog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Blog.h; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 		E520704319EFC72E00FA698C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				E5B369261A02B08F00998B45 /* akagi-bk-webfont.ttf */,
+				E56A91991A029070000D40B0 /* akagi-eb-webfont.ttf */,
 				E520704419EFC89600FA698C /* akagi-sbit-webfont.ttf */,
 				E5F8C2B719F1422300667EA8 /* akagi-sb-webfont.ttf */,
 			);
@@ -281,10 +287,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5E5C2BC19EFE30400F7F137 /* akagi-sbit-webfont.ttf in Resources */,
+				E5B369271A02B08F00998B45 /* akagi-bk-webfont.ttf in Resources */,
 				E559D00419FC5B9C00B23A29 /* Launch Screen2.xib in Resources */,
 				E510FD5F19E6BC2F004B8AF5 /* Main.storyboard in Resources */,
 				E56A91981A025173000D40B0 /* Images.xcassets in Resources */,
 				E510FD6419E6BC2F004B8AF5 /* LaunchScreen.xib in Resources */,
+				E56A919A1A029070000D40B0 /* akagi-eb-webfont.ttf in Resources */,
 				E5F8C2B819F1422300667EA8 /* akagi-sb-webfont.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
