@@ -52,7 +52,7 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults valueForKey:@"token"];
-    token = @"4y9DAs7xKYxTzu7nfp7yR06zZSM3MvJp8koFhdmOey4Fwx9WcH";
+    token = @"4CTB1JXzzYT0llJwHt0XHAVeoos4f3yZEMMiz0vnI340sOejxw";
     
     feedString = [feedString stringByAppendingString:token];
     
@@ -184,7 +184,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+    
     [self loadFeed];
     
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:_searchBar action:@selector(resignFirstResponder)]];
@@ -261,6 +261,7 @@
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [defaults valueForKey:@"token"];
+        token = @"4CTB1JXzzYT0llJwHt0XHAVeoos4f3yZEMMiz0vnI340sOejxw";
         
         NSString *shareUrl= [NSString stringWithFormat:@"http://api.brickflow.com/blog/%1$@/share/%2$@?accessToken=%3$@",
                              @"captainjudikdavid",

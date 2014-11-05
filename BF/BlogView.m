@@ -40,7 +40,7 @@
     CGFloat middleSquare = width/3.49;
     CGFloat smallSquare = width/7.6136363636;
     
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(smallSquare+border*2, border, CGRectGetWidth(self.frame)-smallSquare-border*2, border)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(smallSquare+border*2, border, CGRectGetWidth(self.frame)-smallSquare-border*2, border+2)];
     
     nameLabel.text = _blog.name;
     nameLabel.textColor = [UIColor colorWithRed:130.0/255.0
@@ -52,7 +52,7 @@
     
     [self addSubview:nameLabel];
     
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(smallSquare+border*2, 36, CGRectGetWidth(self.frame)-smallSquare-border*3, 70)];
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(smallSquare+border*2-4, border*2, CGRectGetWidth(self.frame)-smallSquare-border*3, 70)];
     
     _blog.desc = [_blog.desc stringByConvertingHTMLToPlainText];
     

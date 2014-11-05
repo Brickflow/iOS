@@ -91,7 +91,7 @@
 }
 
 - (void)constructNameLabel {
-    CGFloat leftPadding = 70.f;
+    CGFloat leftPadding = 44.f;
     CGFloat topPadding = 10.f;
     CGRect frame = CGRectMake(leftPadding,
                               topPadding,
@@ -109,11 +109,11 @@
 
     self.creatorImageView.imageURL = _brick.creatorPic;
     
-    UIImage * img = [UIImage imageNamed: _brick.name];
+    //UIImage * img = [UIImage imageNamed: _brick.name];
     //UIImageView * providerIcon = [[UIImageView alloc] initWithImage: img];
-    UIImageView * providerIcon = [[UIImageView alloc] initWithFrame:CGRectMake(44, 24, 20, 20)];
-    providerIcon.image = img;
-    [_informationView addSubview:providerIcon];
+    //UIImageView * providerIcon = [[UIImageView alloc] initWithFrame:CGRectMake(44, 24, 20, 20)];
+    //providerIcon.image = img;
+    //[_informationView addSubview:providerIcon];
 }
 
 @end

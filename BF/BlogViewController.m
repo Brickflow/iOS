@@ -139,8 +139,9 @@
 
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 80.f; //100
-    CGFloat bottomPadding = 230.f; //280
+    CGFloat topPadding = CGRectGetHeight(self.view.frame)/6.67;
+    CGFloat bottomPadding = CGRectGetHeight(self.view.frame)/2.3821428571;
+    NSLog(@"%f", CGRectGetHeight(self.view.frame));
     return CGRectMake(horizontalPadding,
                       topPadding,
                       CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),

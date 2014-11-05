@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AuthViewController.h"
 #import "TMAPIClient.h"
+#import "BrickViewController.h"
 
 @interface AppDelegate ()
 
