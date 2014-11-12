@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "JGProgressHUD.h"
 #import "AFNetworking.h"
+#import "BrickflowLogger.h"
 
 @interface AuthViewController ()
 
@@ -24,7 +25,7 @@ JGProgressHUD *HUD;
     [super viewDidLoad];
     
     self.mywebView.delegate = self;
-
+    
     HUD = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
     HUD.textLabel.text = @"Loading Tumblr";
     [HUD showInView:self.view];
@@ -34,7 +35,28 @@ JGProgressHUD *HUD;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [HUD dismiss];
+    if ([HUD isVisible]) {
+        [HUD dismiss];
+    }
+}
+
+- (BOOL)isWebViewFirstResponder
+{
+    NSString *str = [self.mywebView stringByEvaluatingJavaScriptFromString:@"document.activeElement.tagName"];
+    if([[str lowercaseString]isEqualToString:@"input"]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if([self isWebViewFirstResponder] &&
+       navigationType != UIWebViewNavigationTypeFormSubmitted) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (void)auth {
@@ -44,25 +66,35 @@ JGProgressHUD *HUD;
         }
         else {
             //[self dismissViewControllerAnimated:YES completion:nil];
-
+            
             TMAPIClient *client = [TMAPIClient sharedInstance];
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setValue:client.OAuthToken forKey:@"token"];
-            [defaults setValue:client.OAuthTokenSecret forKey:@"secret"];
-            [defaults synchronize];
             
-            [[TMAPIClient sharedInstance] userInfo:^(id result, NSError *error) {
-                if (!error) {
-                    NSLog(@"Got some user info");
-                    NSDictionary *user = [result objectForKey:@"user"];
-                    NSString *name = [user objectForKey:@"name"];
-                    NSLog(@"%@", name);
-                }
+            NSString *loginUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/login"];
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            NSDictionary *parameters = @{
+                @"tumblrAccessToken": client.OAuthToken,
+                     @"tumblrSecret": client.OAuthTokenSecret};
+            [manager POST:loginUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                NSDictionary *user = [responseObject objectForKey:@"user"];
+                NSString *username = [user objectForKey:@"tumblrUsername"];
+                NSString *hash = [user objectForKey:@"hash"];
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setValue:client.OAuthToken forKey:@"token"];
+                [defaults setValue:client.OAuthTokenSecret forKey:@"secret"];
+                [defaults setValue:username forKey:@"username"];
+                [defaults setValue:hash forKey:@"hash"];
+                [defaults synchronize];
+                
+                [BrickflowLogger log:@"user" level:@"info" params:@{@"message": @"login-success"}];
+                
+                AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+                
+                appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
             }];
-        
-            AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
-            
-            appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
         }
     }];
 }

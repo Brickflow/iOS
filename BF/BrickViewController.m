@@ -11,6 +11,7 @@
 #import "BrickView.h"
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "AFNetworking.h"
+#import "BrickflowLogger.h"
 
 @interface BrickViewController ()
 @property (nonatomic, strong) NSMutableArray *bricks;
@@ -42,17 +43,18 @@
 - (void)loadFeed
 {
     NSString *feedString;
+    NSString *feedType;
     if(segmentedControll.selectedSegmentIndex == 0){
         feedString = @"http://api.brickflow.com/feed/trending?accessToken=";
-        
+        feedType = @"trending";
     }
     if(segmentedControll.selectedSegmentIndex == 1){
         feedString = @"http://api.brickflow.com/feed/your?accessToken=";
+        feedType = @"recommend";
     }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults valueForKey:@"token"];
-    token = @"4CTB1JXzzYT0llJwHt0XHAVeoos4f3yZEMMiz0vnI340sOejxw";
     
     feedString = [feedString stringByAppendingString:token];
     
@@ -62,8 +64,10 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+    //manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
     [manager GET:feedString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject[@"bricks"]);
+        [BrickflowLogger log:@"overview" level:@"info" params:@{@"message": @"overview-get", @"feedType": feedType}];
         [self loadBricks:responseObject[@"bricks"]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -83,9 +87,16 @@
     self.tag = searchBar.text;
     self.tag = [self.tag stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-    
     NSString *feedString= @"http://api.brickflow.com/feed/search/";
     feedString = [feedString stringByAppendingString:self.tag];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults valueForKey:@"token"];
+    
+    feedString = [feedString stringByAppendingString:@"?accessToken="];
+    feedString = [feedString stringByAppendingString:token];
+    
+    //[BrickflowLogger log:@"overview" level:@"info" params:@{@"message": @"content-search", @"term": self.tag}];
     
     [self startLoad];
     
@@ -101,13 +112,6 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-//    self.navigationController.navigationBar.hidden=TRUE;
-//    CGRect r=self.view.frame;
-//    r.origin.y=-44;
-//    r.size.height+=44;
-//    
-//    self.view.frame=r;
-    
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 
@@ -115,7 +119,8 @@
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-    [searchBar setShowsCancelButton:NO animated:YES];
+    
+    //[searchBar setShowsCancelButton:NO animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
@@ -126,7 +131,7 @@
     [searchBar resignFirstResponder];
 
     [self loadFeed];
-
+    
     //remaining Code'll go here
 }
 
@@ -195,9 +200,21 @@
 }
 
 - (CGRect)frontCardViewFrame {
-    CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 100.f;
-    CGFloat bottomPadding = 220.f;
+    CGFloat deviceHeight = self.view.frame.size.height;
+    CGFloat horizontalPadding;
+    
+    if (deviceHeight > 480) {
+        horizontalPadding = 20.f;
+    }
+    else {
+        horizontalPadding = 40.f;
+    }
+        
+    CGFloat topPadding = CGRectGetHeight(self.view.frame)/7.5;
+    //CGFloat topPadding = CGRectGetHeight(self.view.frame)/6.67;
+
+    CGFloat bottomPadding = CGRectGetHeight(self.view.frame)/2.3821428571;
+    
     return CGRectMake(horizontalPadding,
                       topPadding,
                       CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
@@ -206,6 +223,7 @@
 
 - (CGRect)backCardViewFrame {
     CGRect frontFrame = [self frontCardViewFrame];
+    
     return CGRectMake(frontFrame.origin.x,
                       frontFrame.origin.y + 10.f,
                       CGRectGetWidth(frontFrame),
@@ -255,16 +273,19 @@
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     if (direction == MDCSwipeDirectionLeft) {
         NSLog(@"Photo deleted!");
+        //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-dismiss", @"_id": self.frontCardView.brick.id}];
     } else {
         NSLog(@"Photo saved!");
+        //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-click", @"_id": self.frontCardView.brick.id}];
         // Create the request.
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *token = [defaults valueForKey:@"token"];
-        token = @"4CTB1JXzzYT0llJwHt0XHAVeoos4f3yZEMMiz0vnI340sOejxw";
+        NSString *token    = [defaults valueForKey:@"token"];
+        NSString *username = [defaults valueForKey:@"username"];
+
         
         NSString *shareUrl= [NSString stringWithFormat:@"http://api.brickflow.com/blog/%1$@/share/%2$@?accessToken=%3$@",
-                             @"captainjudikdavid",
+                             username,
                              self.frontCardView.brick.id,
                              token
                              ];
@@ -273,8 +294,10 @@
         NSDictionary *parameters = @{@"type": @"post"};
         [manager POST:shareUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"JSON: %@", responseObject);
+            //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-success", @"_id": self.frontCardView.brick.id}];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
+            //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-fail", @"_id": self.frontCardView.brick.id}];
         }];
     }
     

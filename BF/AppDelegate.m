@@ -10,6 +10,9 @@
 #import "AuthViewController.h"
 #import "TMAPIClient.h"
 #import "BrickViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 @interface AppDelegate ()
 
@@ -20,7 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    [Fabric with:@[CrashlyticsKit]];
     
     //authenticatedUser: check from NSUserDefaults User credential if its present then set your navigation flow accordingly
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

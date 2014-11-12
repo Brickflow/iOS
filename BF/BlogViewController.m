@@ -10,6 +10,7 @@
 #import "Blog.h"
 #import "BlogView.h"
 #import "AFNetworking.h"
+#import "BrickflowLogger.h"
 
 @interface BlogViewController ()
 @property (nonatomic, strong) NSMutableArray *blogs;
@@ -165,8 +166,10 @@
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     if (direction == MDCSwipeDirectionLeft) {
         NSLog(@"Photo deleted!");
+        [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-dismiss", @"blog": self.frontCardView.blog.name}];
     } else {
         NSLog(@"Photo saved!");
+        [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-click", @"blog": self.frontCardView.blog.name}];
         // Create the request.
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -183,8 +186,10 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager POST:shareUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"JSON: %@", responseObject);
+            [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-success", @"blog": self.frontCardView.blog.name}];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
+            [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-fail", @"blog": self.frontCardView.blog.name}];
         }];
     }
     

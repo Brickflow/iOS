@@ -21,6 +21,8 @@
 
 @implementation BrickView
 
+CGFloat bottomHeight;
+
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -33,13 +35,13 @@
         self.imageView.imageURL = _brick.url;
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.backgroundColor = [UIColor whiteColor];
-        
+                
         if ([_brick.type isEqual: @"video"])
         {
             self.imageView.imageURL = _brick.thumbnail;
             self.player =
             [[MPMoviePlayerController alloc] initWithContentURL: _brick.url];
-            [self.player.view setFrame: self.bounds];  // player's frame must match parent's
+            [self.player.view setFrame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)];  // player's frame must match parent's
             [self addSubview: self.player.view];
             
             [self.player.view addSubview:self.imageView];
@@ -59,8 +61,15 @@
 }
 
 - (void)setFrame:(CGRect)frame {
+    if (frame.size.height > 280){
+        bottomHeight = 60.f;
+    }
+    else {
+        bottomHeight = 40.f;
+    }
+    
     if (frame.size.width != frame.size.height) {
-        frame.size.height = frame.size.width;
+        frame.size.height = frame.size.width + bottomHeight;
     }
     
     [super setFrame:frame];
@@ -69,22 +78,16 @@
 #pragma mark - Internal Methods
 
 - (void)constructInformationView {
-    CGFloat bottomHeight = 60.f;
     CGRect bottomFrame = CGRectMake(0,
                                     CGRectGetHeight(self.bounds) - bottomHeight,
                                     CGRectGetWidth(self.bounds),
                                     bottomHeight);
     _informationView = [[UIView alloc] initWithFrame:bottomFrame];
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = _informationView.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor blackColor] CGColor], nil];
-    [_informationView.layer insertSublayer:gradient atIndex:0];
-    
+    _informationView.backgroundColor = [UIColor whiteColor];
+
     _informationView.clipsToBounds = YES;
     _informationView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleTopMargin;
-    
     [self addSubview:_informationView];
     
     [self constructNameLabel];
@@ -92,28 +95,24 @@
 
 - (void)constructNameLabel {
     CGFloat leftPadding = 44.f;
-    CGFloat topPadding = 10.f;
+    CGFloat height = 16.f;
+    CGFloat imageSize = 25.f;
     CGRect frame = CGRectMake(leftPadding,
-                              topPadding,
+                              (CGRectGetHeight(_informationView.frame)-height)/2,
                               floorf(CGRectGetWidth(_informationView.frame)/2),
-                              CGRectGetHeight(_informationView.frame) - topPadding);
+                              height);
     _nameLabel = [[UILabel alloc] initWithFrame:frame];
     _nameLabel.text = [NSString stringWithFormat:@"%@", _brick.creatorName];
-    _nameLabel.textColor = [UIColor whiteColor];
-    UIFont *font = [UIFont fontWithName:@"Akagi-SemiBoldItalic" size:16];
+    _nameLabel.textColor = [UIColor blackColor];
+    UIFont *font = [UIFont fontWithName:@"Akagi-SemiBoldItalic" size:height];
     [_nameLabel setFont:font];
     [_informationView addSubview:_nameLabel];
     
-    self.creatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 22, 25, 25)];
+    self.creatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(12, (CGRectGetHeight(_informationView.frame)-imageSize)/2,
+                                                                          imageSize, imageSize)];
     [_informationView addSubview:_creatorImageView];
 
     self.creatorImageView.imageURL = _brick.creatorPic;
-    
-    //UIImage * img = [UIImage imageNamed: _brick.name];
-    //UIImageView * providerIcon = [[UIImageView alloc] initWithImage: img];
-    //UIImageView * providerIcon = [[UIImageView alloc] initWithFrame:CGRectMake(44, 24, 20, 20)];
-    //providerIcon.image = img;
-    //[_informationView addSubview:providerIcon];
 }
 
 @end
