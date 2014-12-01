@@ -25,6 +25,7 @@
 		E5C37AE719E6D9C7007DCE0D /* BrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */; };
 		E5C65EF21A0150E900593183 /* Blog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C65EF11A0150E900593183 /* Blog.m */; };
 		E5C65EF51A01516C00593183 /* BlogView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C65EF41A01516C00593183 /* BlogView.m */; };
+		E5D0A8A91A13B7B100338EF6 /* ProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D0A8A81A13B7B100338EF6 /* ProgressBarView.m */; };
 		E5E5C2BC19EFE30400F7F137 /* akagi-sbit-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E520704419EFC89600FA698C /* akagi-sbit-webfont.ttf */; };
 		E5E8A0B21A115F4600488ACB /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E8A0B01A115F4600488ACB /* Crashlytics.framework */; };
 		E5E8A0B31A115F4600488ACB /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E8A0B11A115F4600488ACB /* Fabric.framework */; };
@@ -76,6 +77,8 @@
 		E5C65EF11A0150E900593183 /* Blog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Blog.m; sourceTree = "<group>"; };
 		E5C65EF31A01516C00593183 /* BlogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogView.h; sourceTree = "<group>"; };
 		E5C65EF41A01516C00593183 /* BlogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlogView.m; sourceTree = "<group>"; };
+		E5D0A8A71A13B7B100338EF6 /* ProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBarView.h; sourceTree = "<group>"; };
+		E5D0A8A81A13B7B100338EF6 /* ProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBarView.m; sourceTree = "<group>"; };
 		E5E8A0B01A115F4600488ACB /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E5E8A0B11A115F4600488ACB /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		E5F8C2B719F1422300667EA8 /* akagi-sb-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "akagi-sb-webfont.ttf"; sourceTree = "<group>"; };
@@ -143,8 +146,11 @@
 			isa = PBXGroup;
 			children = (
 				E56A91971A025173000D40B0 /* Images.xcassets */,
+				E5E8A0B11A115F4600488ACB /* Fabric.framework */,
+				E5E8A0B01A115F4600488ACB /* Crashlytics.framework */,
 				E510FD5319E6BC2F004B8AF5 /* Supporting Files */,
 				E520704619EFCC9F00FA698C /* Resources */,
+				E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */,
 				E590896519E6E676008A2821 /* Brick.h */,
 				E590896619E6E676008A2821 /* Brick.m */,
 				E544663219E6EADD003C0CB7 /* BrickView.h */,
@@ -155,7 +161,6 @@
 				E510FD7A19E6C00F004B8AF5 /* AuthViewController.m */,
 				E510FD5719E6BC2F004B8AF5 /* AppDelegate.h */,
 				E510FD5819E6BC2F004B8AF5 /* AppDelegate.m */,
-				E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */,
 				E510FD6219E6BC2F004B8AF5 /* LaunchScreen.xib */,
 				E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */,
 				E5C65EF01A014DFE00593183 /* Blog.h */,
@@ -166,8 +171,8 @@
 				E584C04A1A024ADD001B2703 /* BlogViewController.m */,
 				E5B440391A0D2F7500E35C3A /* BrickflowLogger.h */,
 				E5B4403A1A0D2F7500E35C3A /* BrickflowLogger.m */,
-				E5E8A0B01A115F4600488ACB /* Crashlytics.framework */,
-				E5E8A0B11A115F4600488ACB /* Fabric.framework */,
+				E5D0A8A71A13B7B100338EF6 /* ProgressBarView.h */,
+				E5D0A8A81A13B7B100338EF6 /* ProgressBarView.m */,
 			);
 			path = BF;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5D0A8A91A13B7B100338EF6 /* ProgressBarView.m in Sources */,
 				E510FD7B19E6C00F004B8AF5 /* AuthViewController.m in Sources */,
 				E5C37AE719E6D9C7007DCE0D /* BrickViewController.m in Sources */,
 				E544663419E6EADD003C0CB7 /* BrickView.m in Sources */,
@@ -456,7 +462,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -491,7 +497,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

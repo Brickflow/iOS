@@ -72,7 +72,6 @@
     UIImageView *creatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(border, border, smallSquare, smallSquare)];
     [self addSubview:creatorImageView];
     
-    
     NSURLRequest *request = [NSURLRequest requestWithURL:_blog.image];
     
     [creatorImageView setImageWithURLRequest:request
@@ -116,6 +115,8 @@
                                          failure:nil];
         count++;
     }
+    
+    self.backgroundColor = [UIColor whiteColor];
     
     return self;
 }

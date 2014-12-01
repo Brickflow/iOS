@@ -11,6 +11,7 @@
 #import "BlogView.h"
 #import "AFNetworking.h"
 #import "BrickflowLogger.h"
+#import "ProgressBarView.h"
 
 @interface BlogViewController ()
 @property (nonatomic, strong) NSMutableArray *blogs;
@@ -21,6 +22,8 @@
 - (IBAction)nopeButtonTouch:(id)sender;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSURL *feedUrl;
+@property (weak, nonatomic) IBOutlet ProgressBarView *progressBar;
+- (IBAction)back:(UIBarButtonItem *)sender;
 
 @end
 
@@ -42,7 +45,6 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults valueForKey:@"token"];
-    token = @"4y9DAs7xKYxTzu7nfp7yR06zZSM3MvJp8koFhdmOey4Fwx9WcH";
     
     feedString = [feedString stringByAppendingString:token];
     
@@ -141,6 +143,8 @@
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
     CGFloat topPadding = CGRectGetHeight(self.view.frame)/6.67;
+    
+    topPadding = 110.f;
     CGFloat bottomPadding = CGRectGetHeight(self.view.frame)/2.3821428571;
     NSLog(@"%f", CGRectGetHeight(self.view.frame));
     return CGRectMake(horizontalPadding,
@@ -169,14 +173,13 @@
         [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-dismiss", @"blog": self.frontCardView.blog.name}];
     } else {
         NSLog(@"Photo saved!");
+        //[self.progressBar increase];
+
         [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-click", @"blog": self.frontCardView.blog.name}];
         // Create the request.
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [defaults valueForKey:@"token"];
-        
-        NSLog(@"%@", self.frontCardView.blog.name);
-        token = @"4y9DAs7xKYxTzu7nfp7yR06zZSM3MvJp8koFhdmOey4Fwx9WcH";
         
         NSString *shareUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/follow/%1$@?accessToken=%2$@",
                              self.frontCardView.blog.name,
@@ -212,6 +215,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self.progressBar initWithStep:@"2" remainString:@"Follow %.f!" counter:10 max:20];
+    
     [self startLoad];
     
     [self loadFeed];
@@ -237,5 +242,8 @@
 }
 - (IBAction)nopeButtonTouch:(id)sender {
     [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
+}
+- (IBAction)back:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

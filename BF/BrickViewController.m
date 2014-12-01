@@ -12,11 +12,17 @@
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "AFNetworking.h"
 #import "BrickflowLogger.h"
+#import "ProgressBarView.h"
 
 @interface BrickViewController ()
 @property (nonatomic, strong) NSMutableArray *bricks;
 @property (nonatomic, strong) NSString *tag;
 @property (nonatomic, strong) NSURL *feedUrl;
+@property (nonatomic) CGFloat counter;
+@property (nonatomic) CGFloat max;
+@property (nonatomic) NSInteger inverter;
+
+@property (weak, nonatomic) IBOutlet ProgressBarView *progressBar;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)segmentedControlAction:(id)sender;
 - (IBAction)searchAction:(id)sender;
@@ -24,9 +30,6 @@
 - (IBAction)nopeButtonTouch:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 - (IBAction)likeButtonTouch:(id)sender;
-
-@property (strong,nonatomic) UIWindow *dropdown;
-@property (strong,nonatomic) UILabel *label;
 
 @end
 
@@ -63,8 +66,8 @@
     _feedUrl = [NSURL URLWithString:feedString];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
-    //manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
+    //manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+    manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
     [manager GET:feedString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject[@"bricks"]);
         [BrickflowLogger log:@"overview" level:@"info" params:@{@"message": @"overview-get", @"feedType": feedType}];
@@ -178,8 +181,27 @@
     // Display the second ChoosePersonView in back. This view controller uses
     // the MDCSwipeToChooseDelegate protocol methods to update the front and
     // back views after each user swipe.
-    self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]];
+    self.backCardView = [self popBrickViewWithFrame:[self frontCardViewFrame]];
     [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    
+    self.backCardView.transform = CGAffineTransformRotate(CGAffineTransformIdentity,
+                                                          2 * (M_PI/180.0));
+    self.backCardView.layer.shouldRasterize = YES;
+    
+//    self.thirdCardView = [self popBrickViewWithFrame:[self backCardViewFrame]];
+//    [self.view insertSubview:self.thirdCardView belowSubview:self.frontCardView];
+//    
+//    #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+//    
+//    double rads = DEGREES_TO_RADIANS(2);
+//    CGAffineTransform transform = CGAffineTransformRotate(CGAffineTransformIdentity, rads);
+//    self.backCardView.transform = transform;
+//    self.backCardView.layer.shouldRasterize = YES;
+//    
+//    rads = DEGREES_TO_RADIANS(-2);
+//    transform = CGAffineTransformRotate(CGAffineTransformIdentity, rads);
+//    self.thirdCardView.transform = transform;
+//    self.thirdCardView.layer.shouldRasterize = YES;
     
     // Add buttons to programmatically swipe the view left or right.
     // See the `nopeFrontCardView` and `likeFrontCardView` methods.
@@ -190,13 +212,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.counter = 15;
+    self.max = 20;
+    self.inverter = 1;
+    
+    [self.progressBar initWithStep:@"1" remainString:@"Post %.f!" counter:self.counter max:self.max];
+    
     [self loadFeed];
+    
+    UIFont *font = [UIFont fontWithName:@"Akagi-Semibold" size:14];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                           forKey:NSFontAttributeName];
+    [segmentedControll setTitleTextAttributes:attributes
+                                    forState:UIControlStateNormal];
     
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:_searchBar action:@selector(resignFirstResponder)]];
     
     [self.searchBar setDelegate:self];
-
-    self.searchBar.hidden=YES;
+    
+    //self.searchBar.hidden=YES;
 }
 
 - (CGRect)frontCardViewFrame {
@@ -211,6 +245,7 @@
     }
         
     CGFloat topPadding = CGRectGetHeight(self.view.frame)/7.5;
+    topPadding = 120.f;
     //CGFloat topPadding = CGRectGetHeight(self.view.frame)/6.67;
 
     CGFloat bottomPadding = CGRectGetHeight(self.view.frame)/2.3821428571;
@@ -225,7 +260,8 @@
     CGRect frontFrame = [self frontCardViewFrame];
     
     return CGRectMake(frontFrame.origin.x,
-                      frontFrame.origin.y + 10.f,
+                      frontFrame.origin.y,
+                      //frontFrame.origin.y + 10.f,
                       CGRectGetWidth(frontFrame),
                       CGRectGetHeight(frontFrame));
 }
@@ -248,11 +284,13 @@
     options.nopeColor = [UIColor redColor];
 
     options.onPan = ^(MDCPanState *state){
-        CGRect frame = [self backCardViewFrame];
-        self.backCardView.frame = CGRectMake(frame.origin.x,
-                                             frame.origin.y - (state.thresholdRatio * 10.f),
-                                             CGRectGetWidth(frame),
-                                             CGRectGetHeight(frame));
+//        CGRect frame = [self backCardViewFrame];
+//        self.backCardView.frame = CGRectMake(frame.origin.x,
+//                                             //frame.origin.y - (state.thresholdRatio * 10.f),
+//                                             frame.origin.y,
+//                                             CGRectGetWidth(frame),
+//                                             CGRectGetHeight(frame));
+
     };
     
     // Create a personView with the top person in the people array, then pop
@@ -276,6 +314,13 @@
         //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-dismiss", @"_id": self.frontCardView.brick.id}];
     } else {
         NSLog(@"Photo saved!");
+        
+        [self.progressBar updateCounter:++self.counter];
+        
+        if (self.counter == self.max) {
+            [self performSegueWithIdentifier: @"BlogSegue" sender: self];
+        }
+        
         //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-click", @"_id": self.frontCardView.brick.id}];
         // Create the request.
         
@@ -305,9 +350,19 @@
     {
         [self.frontCardView.player stop];
     }
-        
+    
     self.frontCardView = self.backCardView;
  
+    
+    [UIView animateWithDuration:0.2
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.frontCardView.transform = CGAffineTransformRotate(CGAffineTransformIdentity,
+                                                                               0 * (M_PI/180.0));
+                         self.frontCardView.layer.shouldRasterize = YES;
+                     } completion:nil];
+    
     if ([self.frontCardView.brick.type isEqual: @"video"])
     {
         [self.frontCardView.imageView removeFromSuperview];
@@ -317,13 +372,18 @@
         
     if ((self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
-        self.backCardView.alpha = 0.f;
+        //self.backCardView.alpha = 0.f;
         [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
-        [UIView animateWithDuration:0.5
+        
+
+        [UIView animateWithDuration:0.2
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-                             self.backCardView.alpha = 1.f;
+                             //self.backCardView.alpha = 1.f;
+                             self.backCardView.transform = CGAffineTransformRotate(CGAffineTransformIdentity,
+                                                                                   2 * (M_PI/180.0));
+                             self.backCardView.layer.shouldRasterize = YES;
                          } completion:nil];
     }
 }

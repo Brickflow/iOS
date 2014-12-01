@@ -10,6 +10,7 @@
 #import "AuthViewController.h"
 #import "TMAPIClient.h"
 #import "BrickViewController.h"
+#import "AFNetworking.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -27,11 +28,21 @@
     
     //authenticatedUser: check from NSUserDefaults User credential if its present then set your navigation flow accordingly
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [defaults valueForKey:@"token"];
+    NSString *hash = [defaults valueForKey:@"hash"];
     //NSLog(@"Token %@", token);
     
-    if (token)
+    if (hash)
     {
+        NSString *userUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user"];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"accessToken": hash};
+        
+        [manager GET:userUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@", responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+        
         self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
     }
     else

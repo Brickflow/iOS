@@ -62,7 +62,7 @@ CGFloat bottomHeight;
 
 - (void)setFrame:(CGRect)frame {
     if (frame.size.height > 280){
-        bottomHeight = 60.f;
+        bottomHeight = 40.f;
     }
     else {
         bottomHeight = 40.f;
