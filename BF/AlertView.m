@@ -153,6 +153,21 @@ static CGFloat const ButtonHeight = 65.f;
     self.layer.cornerRadius = self.cornerRadius;
     [self setClipsToBounds:YES];
     
+    // add motioneffect
+    UIInterpolatingMotionEffect *x = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x" type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    
+    CGFloat maxMovement = 20.0f;
+    
+    x.minimumRelativeValue = @(-maxMovement);
+    x.maximumRelativeValue = @(maxMovement);
+    
+    UIInterpolatingMotionEffect *y = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+    
+    y.minimumRelativeValue = @(-maxMovement);
+    y.maximumRelativeValue = @(maxMovement);
+    
+    self.motionEffects = @[x, y];
+    
     [self.background addSubview:self];
     
     CGRect rect = self.frame;
