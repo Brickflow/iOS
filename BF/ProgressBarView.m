@@ -30,7 +30,8 @@
         self.remainString = remainString;
 
         self.max = max;
-        self.counter = counter;
+        self.counter = self.max < counter ? self.max : counter;
+        
         
         UIColor *lightColor =  [UIColor colorWithRed:255.0/255.0
                                               green:172.0/255.0
@@ -94,7 +95,7 @@
 
 -(void)updateCounter:(CGFloat)counter {
     
-    self.counter = counter;
+    self.counter = self.max < counter ? self.max : counter;
     
     CGRect frame = self.progress.frame;
     frame.size.width += CGRectGetWidth(self.bounds)/self.max;

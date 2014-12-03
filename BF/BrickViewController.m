@@ -13,6 +13,7 @@
 #import "AFNetworking.h"
 #import "BrickflowLogger.h"
 #import "ProgressBarView.h"
+#import "AlertView.h"
 
 @interface BrickViewController ()
 @property (nonatomic, strong) NSMutableArray *bricks;
@@ -69,7 +70,7 @@
     //manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
     manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
     [manager GET:feedString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject[@"bricks"]);
+        //NSLog(@"JSON: %@", responseObject[@"bricks"]);
         [BrickflowLogger log:@"overview" level:@"info" params:@{@"message": @"overview-get", @"feedType": feedType}];
         [self loadBricks:responseObject[@"bricks"]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -212,7 +213,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.counter = 15;
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    self.counter = [[user valueForKey:@"dailyShares"] floatValue];
     self.max = 20;
     self.inverter = 1;
     
@@ -229,8 +233,6 @@
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:_searchBar action:@selector(resignFirstResponder)]];
     
     [self.searchBar setDelegate:self];
-    
-    //self.searchBar.hidden=YES;
 }
 
 - (CGRect)frontCardViewFrame {
@@ -245,7 +247,7 @@
     }
         
     CGFloat topPadding = CGRectGetHeight(self.view.frame)/7.5;
-    topPadding = 120.f;
+    topPadding = 60.f;
     //CGFloat topPadding = CGRectGetHeight(self.view.frame)/6.67;
 
     CGFloat bottomPadding = CGRectGetHeight(self.view.frame)/2.3821428571;
@@ -338,7 +340,7 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSDictionary *parameters = @{@"type": @"post"};
         [manager POST:shareUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"JSON: %@", responseObject);
+            //NSLog(@"JSON: %@", responseObject);
             //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-success", @"_id": self.frontCardView.brick.id}];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
@@ -402,6 +404,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)viewWillAppear:(BOOL)animated {
+    AlertView *av = [[AlertView alloc]init];
+    
+    av.imageView.image = [UIImage imageNamed:@"modalPost"];
+    av.titleLabel.text = [NSString stringWithFormat:@"POST %0.f A DAY", self.max ];
+    av.subtitleLabel.text = @"for an engaging blog";
+    
+    [av showInView:self];
+}
 
 - (IBAction)nopeButtonTouch:(id)sender {
     [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];

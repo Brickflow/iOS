@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="JxM-7k-mmF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="JxM-7k-mmF">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -18,6 +18,9 @@
         </mutableArray>
         <mutableArray key="akagi-sbit-webfont.ttf">
             <string>Akagi-SemiBoldItalic</string>
+        </mutableArray>
+        <mutableArray key="akagi-ul.ttf">
+            <string>Akagi-Ultra</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -129,8 +132,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Vo-62-oZ7">
-                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Vo-62-oZ7">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <navigationItem id="Mih-Bw-G3K">
@@ -205,12 +208,22 @@
                                     <constraint firstAttribute="height" constant="21" id="Ju6-cp-1cX"/>
                                     <constraint firstAttribute="width" constant="42" id="jxc-fD-g1l"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Akagi-Ultra" family="Akagi" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SR5-DN-yVS">
+                                <rect key="frame" x="139" y="242" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="E0S-gx-BSf"/>
+                                    <constraint firstAttribute="width" constant="42" id="K0a-Od-7Ag"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Akagi-SemiBoldItalic" family="Akagi" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar hidden="YES" contentMode="redraw" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Gzi-QH-qKU">
-                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="tintColor" red="0.98823529409999999" green="0.61960784310000006" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -224,7 +237,7 @@
                             <constraint firstItem="3cv-4D-sZz" firstAttribute="bottom" secondItem="NEc-CD-64d" secondAttribute="bottom" id="3kg-jE-Jny"/>
                             <constraint firstItem="3cv-4D-sZz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="4vg-Ba-C2B"/>
                             <constraint firstAttribute="trailing" secondItem="NEc-CD-64d" secondAttribute="trailing" id="6JD-4w-LsY"/>
-                            <constraint firstItem="Gzi-QH-qKU" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="64" id="8wF-Zh-SMn"/>
+                            <constraint firstItem="Gzi-QH-qKU" firstAttribute="top" secondItem="6Vo-62-oZ7" secondAttribute="top" id="D2b-HG-AnM"/>
                             <constraint firstAttribute="bottom" secondItem="rIp-um-KQm" secondAttribute="bottom" constant="20" symbolic="YES" id="EZa-xP-ZK3"/>
                             <constraint firstItem="rIp-um-KQm" firstAttribute="centerX" secondItem="6Vo-62-oZ7" secondAttribute="centerX" id="Fhs-Kt-eS2"/>
                             <constraint firstAttribute="width" secondItem="3cv-4D-sZz" secondAttribute="width" multiplier="2:1" id="MUX-YK-ikO"/>
@@ -247,7 +260,7 @@
                         <view key="titleView" contentMode="scaleToFill" id="91f-eL-q3h" customClass="ProgressBarView">
                             <rect key="frame" x="66" y="0.0" width="189" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <barButtonItem key="rightBarButtonItem" image="2" id="6bB-QE-JJE">
                             <connections>
@@ -360,7 +373,7 @@
                         <view key="titleView" contentMode="scaleToFill" id="xYq-pL-GSh" customClass="ProgressBarView">
                             <rect key="frame" x="61" y="0.0" width="200" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </navigationItem>
                     <connections>

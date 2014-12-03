@@ -38,12 +38,16 @@
         NSDictionary *parameters = @{@"accessToken": hash};
         
         [manager GET:userUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%@", responseObject);
+            //NSLog(@"%@", [responseObject objectForKey:@"user"]);
+            
+            NSData* data=[NSKeyedArchiver archivedDataWithRootObject:[responseObject objectForKey:@"user" ]];
+            [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"user"];
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
         }];
         
-        self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        //self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
     }
     else
     {

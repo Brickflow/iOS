@@ -12,9 +12,12 @@
 #import "AFNetworking.h"
 #import "BrickflowLogger.h"
 #import "ProgressBarView.h"
+#import "AlertView.h"
 
 @interface BlogViewController ()
 @property (nonatomic, strong) NSMutableArray *blogs;
+@property (nonatomic) CGFloat counter;
+@property (nonatomic) CGFloat max;
 
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 - (IBAction)likeButtonTouch:(id)sender;
@@ -144,7 +147,7 @@
     CGFloat horizontalPadding = 20.f;
     CGFloat topPadding = CGRectGetHeight(self.view.frame)/6.67;
     
-    topPadding = 110.f;
+    topPadding = 60.f;
     CGFloat bottomPadding = CGRectGetHeight(self.view.frame)/2.3821428571;
     NSLog(@"%f", CGRectGetHeight(self.view.frame));
     return CGRectMake(horizontalPadding,
@@ -215,7 +218,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.progressBar initWithStep:@"2" remainString:@"Follow %.f!" counter:10 max:20];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    CGFloat counter = [[user valueForKey:@"dailyFollows"]floatValue];
+    
+    self.max = 20;
+    
+    [self.progressBar initWithStep:@"2" remainString:@"Follow %.f!" counter:counter max:self.max];
     
     [self startLoad];
     
@@ -236,6 +246,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)viewWillAppear:(BOOL)animated {
+    AlertView *av = [[AlertView alloc]init];
+    
+    av.imageView.image = [UIImage imageNamed:@"modalFollow"];
+    av.titleLabel.text = [NSString stringWithFormat:@"FOLLOW %0.f A DAY", self.max ];
+    av.subtitleLabel.text = @"to grow your network";
+    
+    [av showInView:self];
+}
 
 - (IBAction)likeButtonTouch:(id)sender {
     [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];

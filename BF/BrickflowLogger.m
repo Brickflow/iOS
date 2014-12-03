@@ -29,7 +29,7 @@
     
       manager.requestSerializer = [AFJSONRequestSerializer serializer];
       [manager POST:logUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         NSLog(@"JSON: %@", responseObject);
+         //NSLog(@"JSON: %@", responseObject);
       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          NSLog(@"Error: %@", error);
       }];
