@@ -46,8 +46,10 @@
 {
     NSString *feedString = @"http://api.brickflow.com/feed/blog?accessToken=";
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [defaults valueForKey:@"token"];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    NSString *token = [user valueForKey:@"tumblrAccessToken"];
     
     feedString = [feedString stringByAppendingString:token];
     
@@ -56,9 +58,9 @@
     _feedUrl = [NSURL URLWithString:feedString];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+    manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
     [manager GET:feedString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject[@"blogs"]);
+        //NSLog(@"JSON: %@", responseObject[@"blogs"]);
         [self loadBricks:responseObject[@"blogs"]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -149,7 +151,6 @@
     
     topPadding = 60.f;
     CGFloat bottomPadding = CGRectGetHeight(self.view.frame)/2.3821428571;
-    NSLog(@"%f", CGRectGetHeight(self.view.frame));
     return CGRectMake(horizontalPadding,
                       topPadding,
                       CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
@@ -176,13 +177,27 @@
         [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-dismiss", @"blog": self.frontCardView.blog.name}];
     } else {
         NSLog(@"Photo saved!");
-        //[self.progressBar increase];
+        [self.progressBar updateCounter:++self.counter];
+        
+        if (self.counter == self.max) {
+            AlertView *av = [[AlertView alloc]init];
+
+            av.imageView.image = [UIImage imageNamed:@"modalWow"];
+            av.titleLabel.text = [NSString stringWithFormat:@"WOW,"];
+            av.subtitleLabel.text = @"THAT'S IT FOR TODAY.";
+            av.descriptionLabel.text = @"Come back tomorrow to post more engaging content.";
+            av.layout = withDescription;
+            
+            [av showInView:self];
+        }
 
         [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-click", @"blog": self.frontCardView.blog.name}];
         // Create the request.
         
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *token = [defaults valueForKey:@"token"];
+        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+        NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
+        NSString *token = [user valueForKey:@"tumblrAccessToken"];
         
         NSString *shareUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/follow/%1$@?accessToken=%2$@",
                              self.frontCardView.blog.name,
@@ -191,7 +206,7 @@
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager POST:shareUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"JSON: %@", responseObject);
+            //NSLog(@"JSON: %@", responseObject);
             [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-success", @"blog": self.frontCardView.blog.name}];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
@@ -221,11 +236,11 @@
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
-    CGFloat counter = [[user valueForKey:@"dailyFollows"]floatValue];
+    self.counter = [[user valueForKey:@"dailyFollows"]floatValue];
     
     self.max = 20;
     
-    [self.progressBar initWithStep:@"2" remainString:@"Follow %.f!" counter:counter max:self.max];
+    [self.progressBar initWithStep:@"2" remainString:@"Follow %.f!" counter:self.counter max:self.max];
     
     [self startLoad];
     
@@ -248,13 +263,40 @@
 */
 
 - (void)viewWillAppear:(BOOL)animated {
-    AlertView *av = [[AlertView alloc]init];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSMutableDictionary *user = [[NSKeyedUnarchiver unarchiveObjectWithData:data]mutableCopy];
     
-    av.imageView.image = [UIImage imageNamed:@"modalFollow"];
-    av.titleLabel.text = [NSString stringWithFormat:@"FOLLOW %0.f A DAY", self.max ];
-    av.subtitleLabel.text = @"to grow your network";
+    NSMutableArray *modals = [[user valueForKey:@"showedModals"]mutableCopy];
+    NSString *modalType = @"followStartModal";
     
-    [av showInView:self];
+    if (![modals containsObject: modalType])
+    {
+        AlertView *av = [[AlertView alloc]init];
+        
+        av.imageView.image = [UIImage imageNamed:@"modalFollow"];
+        av.titleLabel.text = [NSString stringWithFormat:@"FOLLOW %0.f A DAY", self.max ];
+        av.subtitleLabel.text = @"to grow your network";
+        
+        [av showInView:self];
+        
+        // sync showedModals with user
+        [modals addObject:modalType];
+        
+        NSString *token = [user valueForKey:@"tumblrAccessToken"];
+        
+        NSString *updateUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/update?accessToken=%@", token];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"showedModals": modals};
+        [manager POST:updateUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [user setObject:modals forKey:@"showedModals"];
+            
+            NSData* data=[NSKeyedArchiver archivedDataWithRootObject:user];
+            [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"user"];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+    }
 }
 
 - (IBAction)likeButtonTouch:(id)sender {

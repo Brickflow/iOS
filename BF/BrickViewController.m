@@ -57,8 +57,10 @@
         feedType = @"recommend";
     }
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [defaults valueForKey:@"token"];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    NSString *token = [user valueForKey:@"tumblrAccessToken"];
     
     feedString = [feedString stringByAppendingString:token];
     
@@ -67,7 +69,6 @@
     _feedUrl = [NSURL URLWithString:feedString];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
     manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringCacheData;
     [manager GET:feedString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject[@"bricks"]);
@@ -94,8 +95,10 @@
     NSString *feedString= @"http://api.brickflow.com/feed/search/";
     feedString = [feedString stringByAppendingString:self.tag];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [defaults valueForKey:@"token"];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    NSString *token = [user valueForKey:@"tumblrAccessToken"];
     
     feedString = [feedString stringByAppendingString:@"?accessToken="];
     feedString = [feedString stringByAppendingString:token];
@@ -326,9 +329,11 @@
         //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-click", @"_id": self.frontCardView.brick.id}];
         // Create the request.
         
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *token    = [defaults valueForKey:@"token"];
-        NSString *username = [defaults valueForKey:@"username"];
+        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+        NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
+        NSString *token = [user valueForKey:@"tumblrAccessToken"];
+        NSString *username = [user valueForKey:@"tumblrUsername"];
 
         
         NSString *shareUrl= [NSString stringWithFormat:@"http://api.brickflow.com/blog/%1$@/share/%2$@?accessToken=%3$@",
@@ -406,13 +411,43 @@
 */
 
 - (void)viewWillAppear:(BOOL)animated {
-    AlertView *av = [[AlertView alloc]init];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSMutableDictionary *user = [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
     
-    av.imageView.image = [UIImage imageNamed:@"modalPost"];
-    av.titleLabel.text = [NSString stringWithFormat:@"POST %0.f A DAY", self.max ];
-    av.subtitleLabel.text = @"for an engaging blog";
+    NSMutableArray *modals = [[user valueForKey:@"showedModals"] mutableCopy];
     
-    [av showInView:self];
+    NSString *modalType = @"postStartModal";
+    
+    if (![modals containsObject: modalType])
+    {
+        AlertView *av = [[AlertView alloc]init];
+        
+        av.imageView.image = [UIImage imageNamed:@"modalPost"];
+        av.titleLabel.text = [NSString stringWithFormat:@"POST %0.f A DAY", self.max ];
+        av.subtitleLabel.text = @"for an engaging blog";
+        
+        [av showInView:self];
+        
+        // sync showedModals with user
+        [modals addObject:modalType];
+        
+        NSString *token = [user valueForKey:@"tumblrAccessToken"];
+        
+        NSString *updateUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/update?accessToken=%@", token];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"showedModals": modals};
+        [manager POST:updateUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            [user setObject:modals forKey:@"showedModals"];
+
+            NSData* data=[NSKeyedArchiver archivedDataWithRootObject:user];
+            [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"user"];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+    }
 }
 
 - (IBAction)nopeButtonTouch:(id)sender {

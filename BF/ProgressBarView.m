@@ -75,11 +75,11 @@
         
         [self addSubview:self.remainLabel];
         
-        UIImageView *imageHolder = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds)-14, 0, 14, CGRectGetHeight(self.bounds))];
-        UIImage *image = [UIImage imageNamed:@"arrow"];
-        imageHolder.image = image;
-            
-        [self addSubview:imageHolder];
+//        UIImageView *imageHolder = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds)-14, 0, 14, CGRectGetHeight(self.bounds))];
+//        UIImage *image = [UIImage imageNamed:@"arrow"];
+//        imageHolder.image = image;
+//            
+//        [self addSubview:imageHolder];
     }
     
     return self;

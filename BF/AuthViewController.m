@@ -76,16 +76,8 @@ JGProgressHUD *HUD;
                      @"tumblrSecret": client.OAuthTokenSecret};
             [manager POST:loginUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
-                NSDictionary *user = [responseObject objectForKey:@"user"];
-                NSString *username = [user objectForKey:@"tumblrUsername"];
-                NSString *hash = [user objectForKey:@"hash"];
-                
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                [defaults setValue:client.OAuthToken forKey:@"token"];
-                [defaults setValue:client.OAuthTokenSecret forKey:@"secret"];
-                [defaults setValue:username forKey:@"username"];
-                [defaults setValue:hash forKey:@"hash"];
-                [defaults synchronize];
+                NSData* data=[NSKeyedArchiver archivedDataWithRootObject:[responseObject objectForKey:@"user" ]];
+                [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"user"];
                 
                 [BrickflowLogger log:@"user" level:@"info" params:@{@"message": @"login-success"}];
                 

@@ -53,6 +53,21 @@ static CGFloat const ButtonHeight = 65.f;
     return _subtitleLabel;
 }
 
+- (UILabel *)descriptionLabel {
+    if (!_descriptionLabel) {
+        _descriptionLabel = [[UILabel alloc] init];
+        [_descriptionLabel setFont:[UIFont fontWithName:@"Akagi-BookItalic" size:20]];
+        _descriptionLabel.textAlignment = NSTextAlignmentCenter;
+        _descriptionLabel.textColor = purple;
+        _descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _descriptionLabel.numberOfLines = 0;
+        
+        [self addSubview:_descriptionLabel];
+    }
+    
+    return _descriptionLabel;
+}
+
 - (UIButton *)button {
     if (!_button) {
         _button = [[UIButton alloc]init];
@@ -81,6 +96,14 @@ static CGFloat const ButtonHeight = 65.f;
     return _imageView;
 }
 
+- (void)setLayout:(AlertViewLayout)layout {
+    if (self.layout == layout) {
+        return;
+    }
+    
+    _layout = layout;
+}
+
 - (void)showInView:(UIViewController *)viewController {
     
     // background
@@ -89,15 +112,35 @@ static CGFloat const ButtonHeight = 65.f;
     // alertview
     [self showAlertView];
     
-    // imageview
-    self.imageView.frame = CGRectMake(
-                                (CGRectGetWidth(self.frame)-195)/2, 40, 195, 172);
     
-    // title
-    self.titleLabel.frame = CGRectMake(0, 247, CGRectGetWidth(self.frame), 22);
-
-    // subtitle
-    self.subtitleLabel.frame = CGRectMake(0, 272, CGRectGetWidth(self.frame), 24);
+    switch (self.layout) {
+        case withTitle:
+            // imageview
+            self.imageView.frame = CGRectMake(
+                                              (CGRectGetWidth(self.frame)-195)/2, 40, 195, 172);
+            // title
+            self.titleLabel.frame = CGRectMake(0, 247, CGRectGetWidth(self.frame), 22);
+            
+            // subtitle
+            self.subtitleLabel.frame = CGRectMake(0, 272, CGRectGetWidth(self.frame), 24);
+            
+            break;
+        case withDescription:
+            // imageview
+            self.imageView.frame = CGRectMake(
+                                              (CGRectGetWidth(self.frame)-195)/2, 40, 195, 80);
+            // title
+            self.titleLabel.frame = CGRectMake(0, 145, CGRectGetWidth(self.frame), 24);
+            [self.titleLabel setFont:[UIFont fontWithName:@"Akagi-ExtraBold" size:24]];
+            
+            // subtitle
+            self.subtitleLabel.frame = CGRectMake(0, 185, CGRectGetWidth(self.frame), 24);
+            
+            // description
+            self.descriptionLabel.frame = CGRectMake(0, 216, CGRectGetWidth(self.frame), 50);
+            
+            break;
+    }
 
     // button
     self.button.frame = CGRectMake(0,
@@ -168,8 +211,10 @@ static CGFloat const ButtonHeight = 65.f;
     
     self.motionEffects = @[x, y];
     
+    // add view
     [self.background addSubview:self];
     
+    // animate
     CGRect rect = self.frame;
     CGRect originalRect = rect;
     rect.origin.y = -rect.size.height;

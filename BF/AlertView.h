@@ -10,14 +10,20 @@
 
 @interface AlertView : UIView
 
+typedef NS_ENUM(NSUInteger, AlertViewLayout) {
+    withTitle = 0,
+    withDescription
+};
+
 @property (nonatomic, assign) CGFloat cornerRadius;
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic) UILabel *titleLabel;
 @property (nonatomic) UILabel *subtitleLabel;
+@property (nonatomic) UILabel *descriptionLabel;
 @property (nonatomic, strong) UIVisualEffectView *background;
 @property (nonatomic, strong) UIButton *button;
 @property (nonatomic, strong) UIImageView *imageView;
-
+@property (nonatomic) AlertViewLayout layout;
 
 - (instancetype)init;
 

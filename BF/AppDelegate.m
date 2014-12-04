@@ -27,9 +27,10 @@
     [Fabric with:@[CrashlyticsKit]];
     
     //authenticatedUser: check from NSUserDefaults User credential if its present then set your navigation flow accordingly
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *hash = [defaults valueForKey:@"hash"];
-    //NSLog(@"Token %@", token);
+
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSString *hash = [user valueForKey:@"hash"];
     
     if (hash)
     {

@@ -10,6 +10,9 @@
         <mutableArray key="akagi-bk-webfont.ttf">
             <string>Akagi-Book</string>
         </mutableArray>
+        <mutableArray key="akagi-bkit-webfont.ttf">
+            <string>Akagi-BookItalic</string>
+        </mutableArray>
         <mutableArray key="akagi-eb-webfont.ttf">
             <string>Akagi-ExtraBold</string>
         </mutableArray>
@@ -139,20 +142,21 @@
                                     <navigationItem id="Mih-Bw-G3K">
                                         <barButtonItem key="leftBarButtonItem" id="PQa-Yq-zsE">
                                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="BLD-Or-eUG">
-                                                <rect key="frame" x="8" y="6" width="211" height="33"/>
+                                                <rect key="frame" x="16" y="7" width="250" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <segments>
                                                     <segment title="Trending"/>
-                                                    <segment title="Special for you"/>
+                                                    <segment title="Recommended"/>
                                                 </segments>
-                                                <color key="tintColor" red="0.98823529409999999" green="0.61960784310000006" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" red="0.31764705879999999" green="0.2470588235" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="segmentedControlAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="JQq-Vx-vhf"/>
                                                 </connections>
                                             </segmentedControl>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="oy0-iT-bb6">
-                                            <color key="tintColor" red="0.98823529409999999" green="0.61960784310000006" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <barButtonItem key="rightBarButtonItem" image="search" id="oy0-iT-bb6">
+                                            <color key="tintColor" red="0.31764705879999999" green="0.2470588235" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="searchAction:" destination="vXZ-lx-hvc" id="Zsf-tr-rgc"/>
                                             </connections>
@@ -208,12 +212,22 @@
                                     <constraint firstAttribute="height" constant="21" id="Ju6-cp-1cX"/>
                                     <constraint firstAttribute="width" constant="42" id="jxc-fD-g1l"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Akagi-BookItalic" family="Akagi" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gu9-ha-0fg">
+                                <rect key="frame" x="78" y="-58" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="htb-AJ-CIC"/>
+                                    <constraint firstAttribute="height" constant="21" id="ipe-uO-BcF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Akagi-Ultra" family="Akagi" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SR5-DN-yVS">
-                                <rect key="frame" x="139" y="242" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SR5-DN-yVS">
+                                <rect key="frame" x="44" y="47" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="E0S-gx-BSf"/>
                                     <constraint firstAttribute="width" constant="42" id="K0a-Od-7Ag"/>
@@ -237,6 +251,7 @@
                             <constraint firstItem="3cv-4D-sZz" firstAttribute="bottom" secondItem="NEc-CD-64d" secondAttribute="bottom" id="3kg-jE-Jny"/>
                             <constraint firstItem="3cv-4D-sZz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="4vg-Ba-C2B"/>
                             <constraint firstAttribute="trailing" secondItem="NEc-CD-64d" secondAttribute="trailing" id="6JD-4w-LsY"/>
+                            <constraint firstItem="SR5-DN-yVS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="28" id="6wK-xX-CWO"/>
                             <constraint firstItem="Gzi-QH-qKU" firstAttribute="top" secondItem="6Vo-62-oZ7" secondAttribute="top" id="D2b-HG-AnM"/>
                             <constraint firstAttribute="bottom" secondItem="rIp-um-KQm" secondAttribute="bottom" constant="20" symbolic="YES" id="EZa-xP-ZK3"/>
                             <constraint firstItem="rIp-um-KQm" firstAttribute="centerX" secondItem="6Vo-62-oZ7" secondAttribute="centerX" id="Fhs-Kt-eS2"/>
@@ -245,11 +260,14 @@
                             <constraint firstAttribute="centerY" secondItem="5m9-9M-FEu" secondAttribute="centerY" id="XAk-BN-otT"/>
                             <constraint firstItem="fMc-cR-Lo7" firstAttribute="top" secondItem="3cv-4D-sZz" secondAttribute="bottom" id="b3d-H3-n7e"/>
                             <constraint firstItem="6Vo-62-oZ7" firstAttribute="top" secondItem="j94-ho-Xig" secondAttribute="bottom" id="cf0-OZ-Uz1"/>
+                            <constraint firstItem="j94-ho-Xig" firstAttribute="top" secondItem="Gu9-ha-0fg" secondAttribute="bottom" constant="37" id="gVM-J4-svr"/>
                             <constraint firstAttribute="centerX" secondItem="5m9-9M-FEu" secondAttribute="centerX" id="mbu-6X-7KI"/>
                             <constraint firstItem="NEc-CD-64d" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="1:2" id="obl-FZ-bHq"/>
                             <constraint firstItem="Gzi-QH-qKU" firstAttribute="leading" secondItem="j94-ho-Xig" secondAttribute="leading" id="qiI-dL-35S"/>
                             <constraint firstItem="rIp-um-KQm" firstAttribute="centerX" secondItem="5m9-9M-FEu" secondAttribute="centerX" id="rJO-dF-8Tp"/>
                             <constraint firstItem="6Vo-62-oZ7" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="yFo-cU-XKm"/>
+                            <constraint firstItem="Gu9-ha-0fg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="62" id="zNI-8S-hT9"/>
+                            <constraint firstItem="SR5-DN-yVS" firstAttribute="top" secondItem="Gzi-QH-qKU" secondAttribute="bottom" constant="3" id="zcZ-js-xpH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7EL-vg-Xpb">
@@ -415,6 +433,7 @@
         <image name="logo" width="100" height="100"/>
         <image name="post" width="100" height="100"/>
         <image name="reject" width="100" height="100"/>
+        <image name="search" width="15" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
