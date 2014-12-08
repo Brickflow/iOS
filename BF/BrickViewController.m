@@ -14,6 +14,7 @@
 #import "BrickflowLogger.h"
 #import "ProgressBarView.h"
 #import "AlertView.h"
+#import "EndView.h"
 
 @interface BrickViewController ()
 @property (nonatomic, strong) NSMutableArray *bricks;
@@ -22,6 +23,7 @@
 @property (nonatomic) CGFloat counter;
 @property (nonatomic) CGFloat max;
 @property (nonatomic) NSInteger inverter;
+@property (nonatomic) EndView *endView;
 
 @property (weak, nonatomic) IBOutlet ProgressBarView *progressBar;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -149,6 +151,8 @@
     self.nopeButton.hidden = YES;
     self.likeButton.hidden = YES;
     
+    self.endView.hidden = YES;
+    
     [activityIndicator startAnimating];
 }
 
@@ -173,7 +177,7 @@
         [bricks addObject: card];
     }
     
-    _bricks = [bricks mutableCopy];
+    self.bricks = [[bricks subarrayWithRange:NSMakeRange(0, 4)] mutableCopy];
     
     [activityIndicator stopAnimating];
     
@@ -225,6 +229,11 @@
     
     [self.progressBar initWithStep:@"1" remainString:@"Post %.f!" counter:self.counter max:self.max];
     
+    self.endView = [[EndView alloc]initWithFrame:self.view.frame
+                                               title:@"TRY SEARCHING TAGS for MORE CONTENT."];
+    [self.view addSubview:self.endView];
+    self.endView.hidden = YES;
+    
     [self loadFeed];
     
     UIFont *font = [UIFont fontWithName:@"Akagi-Semibold" size:14];
@@ -236,6 +245,9 @@
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:_searchBar action:@selector(resignFirstResponder)]];
     
     [self.searchBar setDelegate:self];
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:font];
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:font} forState:UIControlStateNormal];
 }
 
 - (CGRect)frontCardViewFrame {
@@ -304,6 +316,7 @@
                                               brick:self.bricks[0]
                                               options:options];
     [self.bricks removeObjectAtIndex:0];
+    
     return brickView;
 }
 
@@ -334,7 +347,6 @@
         
         NSString *token = [user valueForKey:@"tumblrAccessToken"];
         NSString *username = [user valueForKey:@"tumblrUsername"];
-
         
         NSString *shareUrl= [NSString stringWithFormat:@"http://api.brickflow.com/blog/%1$@/share/%2$@?accessToken=%3$@",
                              username,
@@ -359,7 +371,10 @@
     }
     
     self.frontCardView = self.backCardView;
- 
+    
+    if (self.frontCardView.brick == nil) {
+        self.endView.hidden = NO;
+    }
     
     [UIView animateWithDuration:0.2
                           delay:0.0

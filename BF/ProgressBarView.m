@@ -19,6 +19,9 @@
 
 @implementation ProgressBarView
 
+#define lightColor [UIColor colorWithRed:255.0/255.0 green:172.0/255.0 blue:30.0/255.0 alpha:1.0]
+#define darkColor  [UIColor colorWithRed:81.0/255.0 green:66.0/255.0 blue:105.0/255.0 alpha:1.0]
+
 - (instancetype)initWithStep:(id)step
                 remainString:(NSString *)remainString
                      counter:(CGFloat)counter
@@ -26,22 +29,10 @@
     self = [super init];
 
     if (self) {
-        self.remainString = @"Post %.f!";
         self.remainString = remainString;
 
         self.max = max;
         self.counter = self.max < counter ? self.max : counter;
-        
-        
-        UIColor *lightColor =  [UIColor colorWithRed:255.0/255.0
-                                              green:172.0/255.0
-                                               blue:30.0/255.0
-                                              alpha:1.0];
-        
-        UIColor *darkColor =  [UIColor colorWithRed:81.0/255.0
-                                               green:66.0/255.0
-                                                blue:105.0/255.0
-                                               alpha:1.0];
         
         self.progress = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds)/self.max*self.counter, self.frame.size.height)];
 
@@ -74,12 +65,6 @@
         self.remainLabel.textColor = [UIColor whiteColor];
         
         [self addSubview:self.remainLabel];
-        
-//        UIImageView *imageHolder = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.bounds)-14, 0, 14, CGRectGetHeight(self.bounds))];
-//        UIImage *image = [UIImage imageNamed:@"arrow"];
-//        imageHolder.image = image;
-//            
-//        [self addSubview:imageHolder];
     }
     
     return self;

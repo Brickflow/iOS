@@ -39,8 +39,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZZ-Xx-RHk">
-                                <rect key="frame" x="52" y="452" width="216" height="56"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZZ-Xx-RHk">
+                                <rect key="frame" x="42" y="445" width="236" height="63"/>
                                 <color key="backgroundColor" red="0.17647058823529413" green="0.22745098039215686" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Akagi-SemiBold" family="Akagi" pointSize="20"/>
                                 <inset key="contentEdgeInsets" minX="25" minY="15" maxX="25" maxY="15"/>
@@ -142,7 +142,7 @@
                                     <navigationItem id="Mih-Bw-G3K">
                                         <barButtonItem key="leftBarButtonItem" id="PQa-Yq-zsE">
                                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="BLD-Or-eUG">
-                                                <rect key="frame" x="16" y="7" width="250" height="30"/>
+                                                <rect key="frame" x="16" y="7" width="240" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <segments>
@@ -238,7 +238,8 @@
                             </label>
                             <searchBar hidden="YES" contentMode="redraw" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Gzi-QH-qKU">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <color key="tintColor" red="0.98823529409999999" green="0.61960784310000006" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.85882352941176465" green="0.85882352941176465" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <scopeButtonTitles>

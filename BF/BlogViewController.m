@@ -13,11 +13,13 @@
 #import "BrickflowLogger.h"
 #import "ProgressBarView.h"
 #import "AlertView.h"
+#import "EndView.h"
 
 @interface BlogViewController ()
 @property (nonatomic, strong) NSMutableArray *blogs;
 @property (nonatomic) CGFloat counter;
 @property (nonatomic) CGFloat max;
+@property (nonatomic) EndView *endView;
 
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 - (IBAction)likeButtonTouch:(id)sender;
@@ -38,6 +40,8 @@
     
     self.nopeButton.hidden = YES;
     self.likeButton.hidden = YES;
+    
+    self.endView.hidden = YES;
     
     [_activityIndicator startAnimating];
 }
@@ -216,6 +220,10 @@
     
     self.frontCardView = self.backCardView;
     
+    if (self.frontCardView.blog == nil) {
+        self.endView.hidden = NO;
+    }
+    
     if ((self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
         self.backCardView.alpha = 0.f;
@@ -243,6 +251,11 @@
     [self.progressBar initWithStep:@"2" remainString:@"Follow %.f!" counter:self.counter max:self.max];
     
     [self startLoad];
+    
+    self.endView = [[EndView alloc]initWithFrame:self.view.frame
+                                           title:@"COME BACK TOMORROW for MORE BLOG."];
+    [self.view addSubview:self.endView];
+    self.endView.hidden = YES;
     
     [self loadFeed];
 }
