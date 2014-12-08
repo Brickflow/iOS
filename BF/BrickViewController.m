@@ -177,7 +177,7 @@
         [bricks addObject: card];
     }
     
-    self.bricks = [[bricks subarrayWithRange:NSMakeRange(0, 4)] mutableCopy];
+    self.bricks = [bricks mutableCopy];
     
     [activityIndicator stopAnimating];
     
@@ -329,7 +329,7 @@
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     if (direction == MDCSwipeDirectionLeft) {
         NSLog(@"Photo deleted!");
-        //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-dismiss", @"_id": self.frontCardView.brick.id}];
+        [BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-dismiss", @"_id": self.frontCardView.brick.id}];
     } else {
         NSLog(@"Photo saved!");
         
@@ -339,7 +339,7 @@
             [self performSegueWithIdentifier: @"BlogSegue" sender: self];
         }
         
-        //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-click", @"_id": self.frontCardView.brick.id}];
+        [BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-click", @"_id": self.frontCardView.brick.id}];
         // Create the request.
         
         NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
@@ -358,10 +358,10 @@
         NSDictionary *parameters = @{@"type": @"post"};
         [manager POST:shareUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             //NSLog(@"JSON: %@", responseObject);
-            //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-success", @"_id": self.frontCardView.brick.id}];
+            [BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-success", @"_id": self.frontCardView.brick.id}];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
-            //[BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-fail", @"_id": self.frontCardView.brick.id}];
+            [BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-fail", @"_id": self.frontCardView.brick.id}];
         }];
     }
     

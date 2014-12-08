@@ -39,8 +39,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZZ-Xx-RHk">
-                                <rect key="frame" x="42" y="445" width="236" height="63"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZZ-Xx-RHk">
+                                <rect key="frame" x="52" y="452" width="216" height="56"/>
                                 <color key="backgroundColor" red="0.17647058823529413" green="0.22745098039215686" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Akagi-SemiBold" family="Akagi" pointSize="20"/>
                                 <inset key="contentEdgeInsets" minX="25" minY="15" maxX="25" maxY="15"/>
