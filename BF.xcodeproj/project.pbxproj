@@ -23,6 +23,7 @@
 		E590896719E6E676008A2821 /* Brick.m in Sources */ = {isa = PBXBuildFile; fileRef = E590896619E6E676008A2821 /* Brick.m */; };
 		E591B7681A2F22D6005ABD00 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E591B7671A2F22D6005ABD00 /* AlertView.m */; };
 		E591B76A1A2F673C005ABD00 /* akagi-ul.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E591B7691A2F673C005ABD00 /* akagi-ul.ttf */; };
+		E5A5C3DC1A372737002A6043 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A5C3DB1A372737002A6043 /* MenuViewController.m */; };
 		E5B369271A02B08F00998B45 /* akagi-bk-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5B369261A02B08F00998B45 /* akagi-bk-webfont.ttf */; };
 		E5B4403B1A0D2F7500E35C3A /* BrickflowLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B4403A1A0D2F7500E35C3A /* BrickflowLogger.m */; };
 		E5C37AE719E6D9C7007DCE0D /* BrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */; };
@@ -76,6 +77,8 @@
 		E591B7661A2F22D6005ABD00 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		E591B7671A2F22D6005ABD00 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		E591B7691A2F673C005ABD00 /* akagi-ul.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "akagi-ul.ttf"; sourceTree = "<group>"; };
+		E5A5C3DA1A372737002A6043 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		E5A5C3DB1A372737002A6043 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		E5B369261A02B08F00998B45 /* akagi-bk-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "akagi-bk-webfont.ttf"; sourceTree = "<group>"; };
 		E5B440391A0D2F7500E35C3A /* BrickflowLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickflowLogger.h; sourceTree = "<group>"; };
 		E5B4403A1A0D2F7500E35C3A /* BrickflowLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickflowLogger.m; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 				E591B7671A2F22D6005ABD00 /* AlertView.m */,
 				E5DE78251A31B2EB00C0CC3D /* EndView.h */,
 				E5DE78261A31B2EB00C0CC3D /* EndView.m */,
+				E5A5C3DA1A372737002A6043 /* MenuViewController.h */,
+				E5A5C3DB1A372737002A6043 /* MenuViewController.m */,
 			);
 			path = BF;
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				E510FD5919E6BC2F004B8AF5 /* AppDelegate.m in Sources */,
 				E591B7681A2F22D6005ABD00 /* AlertView.m in Sources */,
 				E510FD5619E6BC2F004B8AF5 /* main.m in Sources */,
+				E5A5C3DC1A372737002A6043 /* MenuViewController.m in Sources */,
 				E5B4403B1A0D2F7500E35C3A /* BrickflowLogger.m in Sources */,
 				E5DE78271A31B2EB00C0CC3D /* EndView.m in Sources */,
 			);

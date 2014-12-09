@@ -228,7 +228,7 @@
     self.inverter = 1;
     
     [self.progressBar initWithStep:@"1" remainString:@"Post %.f!" counter:self.counter max:self.max];
-    
+        
     self.endView = [[EndView alloc]initWithFrame:self.view.frame
                                                title:@"TRY SEARCHING TAGS for MORE CONTENT."];
     [self.view addSubview:self.endView];

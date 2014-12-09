@@ -27,6 +27,24 @@
         </mutableArray>
     </customFonts>
     <scenes>
+        <!--Menu View Controller-->
+        <scene sceneID="3sY-0i-HeX">
+            <objects>
+                <viewController id="WTj-mB-I5N" customClass="MenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="H6c-1k-OwZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fj1-HO-eNq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fRf-ki-fir">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gzh-ts-igg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="606" y="-304"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="45s-G2-R87">
             <objects>
@@ -273,11 +291,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="7EL-vg-Xpb">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="applogo" id="swi-G9-Hzx">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="swi-G9-Hzx">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
-                        <view key="titleView" contentMode="scaleToFill" id="91f-eL-q3h" customClass="ProgressBarView">
-                            <rect key="frame" x="66" y="0.0" width="189" height="44"/>
+                        <view key="titleView" contentMode="scaleToFill" id="rTX-nn-34E" customClass="ProgressBarView">
+                            <rect key="frame" x="65" y="2" width="190" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
@@ -293,7 +311,7 @@
                         <outlet property="activityIndicator" destination="5m9-9M-FEu" id="76j-Il-vkQ"/>
                         <outlet property="likeButton" destination="RFd-oN-58k" id="D5l-qX-sOh"/>
                         <outlet property="nopeButton" destination="Kaf-Dm-kob" id="b9v-sE-7wh"/>
-                        <outlet property="progressBar" destination="91f-eL-q3h" id="1Si-N4-EkY"/>
+                        <outlet property="progressBar" destination="rTX-nn-34E" id="lIq-Qm-Vbg"/>
                         <outlet property="searchBar" destination="Gzi-QH-qKU" id="YLr-AR-BiQ"/>
                         <outlet property="segmentedControll" destination="BLD-Or-eUG" id="lh5-z0-YzU"/>
                     </connections>
@@ -430,8 +448,8 @@
     <resources>
         <image name="2" width="28" height="27"/>
         <image name="add" width="100" height="100"/>
-        <image name="applogo" width="32" height="24"/>
         <image name="logo" width="100" height="100"/>
+        <image name="menu" width="19" height="16"/>
         <image name="post" width="100" height="100"/>
         <image name="reject" width="100" height="100"/>
         <image name="search" width="15" height="16"/>
