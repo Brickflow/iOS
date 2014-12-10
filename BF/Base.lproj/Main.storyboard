@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="JxM-7k-mmF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="VgQ-Ym-tB3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -18,6 +18,7 @@
         </mutableArray>
         <mutableArray key="akagi-sb-webfont.ttf">
             <string>Akagi-SemiBold</string>
+            <string>Akagi-SemiBold</string>
         </mutableArray>
         <mutableArray key="akagi-sbit-webfont.ttf">
             <string>Akagi-SemiBoldItalic</string>
@@ -27,6 +28,28 @@
         </mutableArray>
     </customFonts>
     <scenes>
+        <!--Reveal View Controller-->
+        <scene sceneID="VvG-YJ-IjY">
+            <objects>
+                <viewController id="VgQ-Ym-tB3" customClass="SWRevealViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W4i-ew-IJc"/>
+                        <viewControllerLayoutGuide type="bottom" id="5qv-6G-Ncc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Vu2-9P-iHb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="WTj-mB-I5N" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="oRD-sn-hrm"/>
+                        <segue destination="JxM-7k-mmF" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="eEC-FU-rbe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tq1-E0-Ygw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="168" y="2"/>
+        </scene>
         <!--Menu View Controller-->
         <scene sceneID="3sY-0i-HeX">
             <objects>
@@ -38,8 +61,55 @@
                     <view key="view" contentMode="scaleToFill" id="fRf-ki-fir">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OM-hk-vdB">
+                                <rect key="frame" x="0.0" y="0.0" width="260" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTB-OE-bxc" customClass="UserView">
+                                        <rect key="frame" x="0.0" y="0.0" width="260" height="260"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="260" id="sVg-mF-wSY"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ox5-MQ-xY9">
+                                        <rect key="frame" x="0.0" y="260" width="260" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="J0X-w6-QxU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Akagi-SemiBold" family="Akagi" pointSize="18"/>
+                                        <state key="normal" title="LOG OUT">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="FB6-S2-o1e" kind="custom" identifier="logout" customClass="SWRevealViewControllerSeguePushController" id="3gW-1I-hPH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="sTB-OE-bxc" firstAttribute="leading" secondItem="9OM-hk-vdB" secondAttribute="leading" id="9ec-SM-rDX"/>
+                                    <constraint firstItem="sTB-OE-bxc" firstAttribute="top" secondItem="9OM-hk-vdB" secondAttribute="top" id="KXh-2e-v1k"/>
+                                    <constraint firstItem="ox5-MQ-xY9" firstAttribute="top" secondItem="9OM-hk-vdB" secondAttribute="top" constant="260" id="ToV-2f-zhw"/>
+                                    <constraint firstAttribute="width" secondItem="ox5-MQ-xY9" secondAttribute="width" id="Yuv-nG-80p"/>
+                                    <constraint firstItem="ox5-MQ-xY9" firstAttribute="leading" secondItem="9OM-hk-vdB" secondAttribute="leading" id="bhy-TM-HIq"/>
+                                    <constraint firstItem="sTB-OE-bxc" firstAttribute="width" secondItem="9OM-hk-vdB" secondAttribute="width" id="fd3-Kq-DrW"/>
+                                    <constraint firstAttribute="width" constant="260" id="gsR-iC-BFp"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9OM-hk-vdB" firstAttribute="height" secondItem="fRf-ki-fir" secondAttribute="height" id="2V1-r6-zU0"/>
+                            <constraint firstItem="9OM-hk-vdB" firstAttribute="leading" secondItem="fRf-ki-fir" secondAttribute="leading" id="f4i-fX-1FC"/>
+                            <constraint firstItem="9OM-hk-vdB" firstAttribute="top" secondItem="fRf-ki-fir" secondAttribute="topMargin" id="kRj-xh-FKh"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="logoutButton" destination="ox5-MQ-xY9" id="Xbe-fc-hER"/>
+                        <outlet property="userview" destination="sTB-OE-bxc" id="nnq-x1-aAZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gzh-ts-igg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -310,6 +380,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="5m9-9M-FEu" id="76j-Il-vkQ"/>
                         <outlet property="likeButton" destination="RFd-oN-58k" id="D5l-qX-sOh"/>
+                        <outlet property="menuButton" destination="swi-G9-Hzx" id="8sb-tR-45z"/>
                         <outlet property="nopeButton" destination="Kaf-Dm-kob" id="b9v-sE-7wh"/>
                         <outlet property="progressBar" destination="rTX-nn-34E" id="lIq-Qm-Vbg"/>
                         <outlet property="searchBar" destination="Gzi-QH-qKU" id="YLr-AR-BiQ"/>

@@ -15,6 +15,7 @@
 #import "ProgressBarView.h"
 #import "AlertView.h"
 #import "EndView.h"
+#import "SWRevealViewController.h"
 
 @interface BrickViewController ()
 @property (nonatomic, strong) NSMutableArray *bricks;
@@ -25,6 +26,7 @@
 @property (nonatomic) NSInteger inverter;
 @property (nonatomic) EndView *endView;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (weak, nonatomic) IBOutlet ProgressBarView *progressBar;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)segmentedControlAction:(id)sender;
@@ -248,6 +250,14 @@
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:font];
     
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:font} forState:UIControlStateNormal];
+    
+    // reveal menu
+    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+    self.menuButton.target = self.revealViewController;
+    self.menuButton.action = @selector(revealToggle:);
+    
+    // Set the gesture
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 
 - (CGRect)frontCardViewFrame {
