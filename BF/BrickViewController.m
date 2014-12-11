@@ -27,7 +27,7 @@
 @property (nonatomic) EndView *endView;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
-@property (weak, nonatomic) IBOutlet ProgressBarView *progressBar;
+@property (strong, nonatomic) IBOutlet ProgressBarView *progressBar;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)segmentedControlAction:(id)sender;
 - (IBAction)searchAction:(id)sender;
@@ -229,7 +229,7 @@
     self.max = 20;
     self.inverter = 1;
     
-    [self.progressBar initWithStep:@"1" remainString:@"Post %.f!" counter:self.counter max:self.max];
+    self.progressBar = [self.progressBar initWithStep:@"1" remainString:@"Post %.f!" counter:self.counter max:self.max];
         
     self.endView = [[EndView alloc]initWithFrame:self.view.frame
                                                title:@"TRY SEARCHING TAGS for MORE CONTENT."];
@@ -340,6 +340,25 @@
     if (direction == MDCSwipeDirectionLeft) {
         NSLog(@"Photo deleted!");
         [BrickflowLogger log:@"share" level:@"info" params:@{@"message": @"share-dismiss", @"_id": self.frontCardView.brick.id}];
+        
+        // view brick
+        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+        NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
+        NSString *token = [user valueForKey:@"tumblrAccessToken"];
+        
+        NSString *viewUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/dismissBrick/%1$@?accessToken=%2$@",
+                            self.frontCardView.brick.id,
+                            token
+                            ];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"type": @"post"};
+        [manager POST:viewUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
     } else {
         NSLog(@"Photo saved!");
         

@@ -365,7 +365,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="rTX-nn-34E" customClass="ProgressBarView">
-                            <rect key="frame" x="65" y="2" width="190" height="40"/>
+                            <rect key="frame" x="59" y="0.0" width="200" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
@@ -473,20 +473,24 @@
                     </view>
                     <navigationItem key="navigationItem" id="XPA-uT-xlt">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="2" id="YOa-4q-ybC">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="HM2-at-8vU">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <view key="titleView" contentMode="scaleToFill" id="xYq-pL-GSh" customClass="ProgressBarView">
+                            <rect key="frame" x="77" y="0.0" width="166" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <barButtonItem key="rightBarButtonItem" image="2" id="YOa-4q-ybC">
                             <connections>
                                 <action selector="back:" destination="dem-h9-CEv" id="kEd-e2-aMa"/>
                             </connections>
                         </barButtonItem>
-                        <view key="titleView" contentMode="scaleToFill" id="xYq-pL-GSh" customClass="ProgressBarView">
-                            <rect key="frame" x="61" y="0.0" width="200" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="67O-A9-cAm" id="fVO-Lv-n8J"/>
                         <outlet property="likeButton" destination="5TH-2B-fmz" id="sCT-fS-fD4"/>
+                        <outlet property="menuButton" destination="HM2-at-8vU" id="7nM-bU-6pg"/>
                         <outlet property="nopeButton" destination="7Iq-pV-xtk" id="Xj6-0L-bp8"/>
                         <outlet property="progressBar" destination="xYq-pL-GSh" id="Idf-Z3-SvU"/>
                     </connections>

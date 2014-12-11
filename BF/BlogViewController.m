@@ -14,6 +14,7 @@
 #import "ProgressBarView.h"
 #import "AlertView.h"
 #import "EndView.h"
+#import "SWRevealViewController.h"
 
 @interface BlogViewController ()
 @property (nonatomic, strong) NSMutableArray *blogs;
@@ -21,13 +22,14 @@
 @property (nonatomic) CGFloat max;
 @property (nonatomic) EndView *endView;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 - (IBAction)likeButtonTouch:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *nopeButton;
 - (IBAction)nopeButtonTouch:(id)sender;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSURL *feedUrl;
-@property (weak, nonatomic) IBOutlet ProgressBarView *progressBar;
+@property (strong, nonatomic) IBOutlet ProgressBarView *progressBar;
 - (IBAction)back:(UIBarButtonItem *)sender;
 
 @end
@@ -248,7 +250,7 @@
     
     self.max = 20;
     
-    [self.progressBar initWithStep:@"2" remainString:@"Follow %.f!" counter:self.counter max:self.max];
+    self.progressBar = [self.progressBar initWithStep:@"2" remainString:@"Follow %.f!" counter:self.counter max:self.max];
     
     [self startLoad];
     
@@ -258,6 +260,14 @@
     self.endView.hidden = YES;
     
     [self loadFeed];
+    
+    // reveal menu
+    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+    self.menuButton.target = self.revealViewController;
+    self.menuButton.action = @selector(revealToggle:);
+    
+    // Set the gesture
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning {

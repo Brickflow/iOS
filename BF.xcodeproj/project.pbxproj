@@ -161,30 +161,20 @@
 		E510FD5219E6BC2F004B8AF5 /* BF */ = {
 			isa = PBXGroup;
 			children = (
+				E57DCF571A39E89A005CA2CE /* Brick */,
 				E56A91971A025173000D40B0 /* Images.xcassets */,
 				E5E8A0B11A115F4600488ACB /* Fabric.framework */,
 				E5E8A0B01A115F4600488ACB /* Crashlytics.framework */,
 				E510FD5319E6BC2F004B8AF5 /* Supporting Files */,
 				E520704619EFCC9F00FA698C /* Resources */,
 				E510FD5D19E6BC2F004B8AF5 /* Main.storyboard */,
-				E590896519E6E676008A2821 /* Brick.h */,
-				E590896619E6E676008A2821 /* Brick.m */,
-				E544663219E6EADD003C0CB7 /* BrickView.h */,
-				E544663319E6EADD003C0CB7 /* BrickView.m */,
-				E5C37AE519E6D9C7007DCE0D /* BrickViewController.h */,
-				E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */,
 				E510FD7919E6C00F004B8AF5 /* AuthViewController.h */,
 				E510FD7A19E6C00F004B8AF5 /* AuthViewController.m */,
 				E510FD5719E6BC2F004B8AF5 /* AppDelegate.h */,
 				E510FD5819E6BC2F004B8AF5 /* AppDelegate.m */,
 				E510FD6219E6BC2F004B8AF5 /* LaunchScreen.xib */,
 				E559D00319FC5B9C00B23A29 /* Launch Screen2.xib */,
-				E5C65EF01A014DFE00593183 /* Blog.h */,
-				E5C65EF11A0150E900593183 /* Blog.m */,
-				E5C65EF31A01516C00593183 /* BlogView.h */,
-				E5C65EF41A01516C00593183 /* BlogView.m */,
-				E584C0491A024ADD001B2703 /* BlogViewController.h */,
-				E584C04A1A024ADD001B2703 /* BlogViewController.m */,
+				E57DCF581A39E8AE005CA2CE /* Blog */,
 				E5B440391A0D2F7500E35C3A /* BrickflowLogger.h */,
 				E5B4403A1A0D2F7500E35C3A /* BrickflowLogger.m */,
 				E5D0A8A71A13B7B100338EF6 /* ProgressBarView.h */,
@@ -246,6 +236,32 @@
 				E520704319EFC72E00FA698C /* Fonts */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		E57DCF571A39E89A005CA2CE /* Brick */ = {
+			isa = PBXGroup;
+			children = (
+				E590896519E6E676008A2821 /* Brick.h */,
+				E590896619E6E676008A2821 /* Brick.m */,
+				E544663219E6EADD003C0CB7 /* BrickView.h */,
+				E544663319E6EADD003C0CB7 /* BrickView.m */,
+				E5C37AE519E6D9C7007DCE0D /* BrickViewController.h */,
+				E5C37AE619E6D9C7007DCE0D /* BrickViewController.m */,
+			);
+			name = Brick;
+			sourceTree = "<group>";
+		};
+		E57DCF581A39E8AE005CA2CE /* Blog */ = {
+			isa = PBXGroup;
+			children = (
+				E5C65EF01A014DFE00593183 /* Blog.h */,
+				E5C65EF11A0150E900593183 /* Blog.m */,
+				E5C65EF31A01516C00593183 /* BlogView.h */,
+				E5C65EF41A01516C00593183 /* BlogView.m */,
+				E584C0491A024ADD001B2703 /* BlogViewController.h */,
+				E584C04A1A024ADD001B2703 /* BlogViewController.m */,
+			);
+			name = Blog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
