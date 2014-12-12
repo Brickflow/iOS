@@ -31,6 +31,6 @@ typedef NS_ENUM(NSUInteger, AlertViewLayout) {
 
 - (void)showInView:(UIViewController *)viewControler;
 
-- (void)dismiss;
+- (void)dismissOrShake;
 
 @end

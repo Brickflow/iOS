@@ -96,7 +96,7 @@
         [blogs addObject: card];
     }
     
-    _blogs = [blogs mutableCopy];
+    self.blogs = [blogs mutableCopy];
     
     [_activityIndicator stopAnimating];
     
@@ -108,8 +108,12 @@
     // Display the second ChoosePersonView in back. This view controller uses
     // the MDCSwipeToChooseDelegate protocol methods to update the front and
     // back views after each user swipe.
-    self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]];
+    self.backCardView = [self popBrickViewWithFrame:[self frontCardViewFrame]];
     [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    
+    self.backCardView.transform = CGAffineTransformRotate(CGAffineTransformIdentity,
+                                                          2 * (M_PI/180.0));
+    self.backCardView.layer.shouldRasterize = YES;
     
     // Add buttons to programmatically swipe the view left or right.
     // See the `nopeFrontCardView` and `likeFrontCardView` methods.
@@ -135,19 +139,20 @@
     options.nopeColor = [UIColor redColor];
     
     options.onPan = ^(MDCPanState *state){
-        CGRect frame = [self backCardViewFrame];
-        self.backCardView.frame = CGRectMake(frame.origin.x,
-                                             frame.origin.y - (state.thresholdRatio * 10.f),
-                                             CGRectGetWidth(frame),
-                                             CGRectGetHeight(frame));
+//        CGRect frame = [self backCardViewFrame];
+//        self.backCardView.frame = CGRectMake(frame.origin.x,
+//                                             frame.origin.y - (state.thresholdRatio * 10.f),
+//                                             CGRectGetWidth(frame),
+//                                             CGRectGetHeight(frame));
     };
     
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
     BlogView *blogView = [[BlogView alloc] initWithFrame:frame
-                                                      blog:self.blogs[0]
-                                                    options:options];
+                                                    blog:self.blogs[0]
+                                                 options:options];
     [self.blogs removeObjectAtIndex:0];
+    
     return blogView;
 }
 
@@ -165,8 +170,10 @@
 
 - (CGRect)backCardViewFrame {
     CGRect frontFrame = [self frontCardViewFrame];
+    
     return CGRectMake(frontFrame.origin.x,
-                      frontFrame.origin.y + 10.f,
+                      frontFrame.origin.y,
+                      //frontFrame.origin.y + 10.f,
                       CGRectGetWidth(frontFrame),
                       CGRectGetHeight(frontFrame));
 }
@@ -226,15 +233,29 @@
         self.endView.hidden = NO;
     }
     
+    [UIView animateWithDuration:0.2
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.frontCardView.transform = CGAffineTransformRotate(CGAffineTransformIdentity,
+                                                                                0 * (M_PI/180.0));
+                         self.frontCardView.layer.shouldRasterize = YES;
+                     } completion:nil];
+    
     if ((self.backCardView = [self popBrickViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
-        self.backCardView.alpha = 0.f;
+        //self.backCardView.alpha = 0.f;
         [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
-        [UIView animateWithDuration:0.5
+        
+        
+        [UIView animateWithDuration:0.2
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-                             self.backCardView.alpha = 1.f;
+                             //self.backCardView.alpha = 1.f;
+                             self.backCardView.transform = CGAffineTransformRotate(CGAffineTransformIdentity,
+                                                                                   2 * (M_PI/180.0));
+                             self.backCardView.layer.shouldRasterize = YES;
                          } completion:nil];
     }
 }

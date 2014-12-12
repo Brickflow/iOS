@@ -103,6 +103,9 @@
         }
         
         UIImageView *ImageView = [[UIImageView alloc] initWithFrame:rect];
+        ImageView.contentMode = UIViewContentModeScaleAspectFill;
+        ImageView.clipsToBounds = YES;
+
         [self addSubview:ImageView];
         
         NSURL *url = [NSURL URLWithString:image];
