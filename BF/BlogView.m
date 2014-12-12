@@ -52,23 +52,29 @@
     
     [self addSubview:nameLabel];
     
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(smallSquare+border*2-4, border*2, CGRectGetWidth(self.frame)-smallSquare-border*3, 70)];
     
+    // add description
     _blog.desc = [_blog.desc stringByConvertingHTMLToPlainText];
     
-    [text setBackgroundColor:[UIColor clearColor]];
-
-    text.textColor = [UIColor colorWithRed:106.0/255.0
-                                     green:104.0/255.0
-                                      blue:125.0/255.0
-                                     alpha:1.0];
-
-    text.text = _blog.desc;
+    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(smallSquare+border*2, border*2, CGRectGetWidth(self.frame)-smallSquare-border*3, 48)];
+    
+    description.text = self.blog.desc;
+    
+    description.textColor = [UIColor colorWithRed:106.0/255.0
+                                            green:104.0/255.0
+                                             blue:125.0/255.0
+                                                alpha:1.0];
+    
     font = [UIFont fontWithName:@"Akagi-Book" size:16];
-    [text setFont:font];
+    [description setFont:font];
     
-    [self addSubview:text];
+    description.lineBreakMode = NSLineBreakByWordWrapping;
+    description.numberOfLines = 0;
     
+    [self addSubview:description];
+    
+    
+    // add creator image
     UIImageView *creatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(border, border, smallSquare, smallSquare)];
     [self addSubview:creatorImageView];
     
