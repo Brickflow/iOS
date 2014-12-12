@@ -12,7 +12,8 @@
 
 typedef NS_ENUM(NSUInteger, AlertViewLayout) {
     withTitle = 0,
-    withDescription
+    withDescription,
+    withForm
 };
 
 @property (nonatomic, assign) CGFloat cornerRadius;
@@ -24,6 +25,7 @@ typedef NS_ENUM(NSUInteger, AlertViewLayout) {
 @property (nonatomic, strong) UIButton *button;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic) AlertViewLayout layout;
+@property (nonatomic) UITextField *textfield;
 
 - (instancetype)init;
 

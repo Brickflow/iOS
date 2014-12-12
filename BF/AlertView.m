@@ -7,6 +7,7 @@
 //
 
 #import "AlertView.h"
+#import "AFNetworking.h"
 
 @implementation AlertView
 
@@ -77,8 +78,8 @@ static CGFloat const ButtonHeight = 65.f;
         [_button setBackgroundColor:orange];
         
         [_button addTarget: self
-                        action: @selector(touchButton:)
-              forControlEvents: UIControlEventTouchUpInside];
+                    action: @selector(touchButton:)
+          forControlEvents: UIControlEventTouchUpInside];
         
         [self addSubview:_button];
     }
@@ -95,6 +96,41 @@ static CGFloat const ButtonHeight = 65.f;
     
     return _imageView;
 }
+
+- (UITextField *)textfield {
+    if (!_textfield) {
+        _textfield = [[UITextField alloc]init];
+        _textfield.layer.borderColor = [orange CGColor];
+        _textfield.layer.borderWidth = 1.0f;
+        _textfield.layer.cornerRadius = 5.0f;
+        [_textfield setPlaceholder:@"your@email.org"];
+        
+        UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        [self.textfield setLeftViewMode:UITextFieldViewModeAlways];
+        [self.textfield setLeftView:spacerView];
+        
+        [_textfield addTarget:self
+                       action:@selector(returnTextfield:)
+             forControlEvents:UIControlEventEditingDidEndOnExit];
+        
+        [self addSubview:_textfield];
+                
+        [self.textfield becomeFirstResponder];
+    }
+    
+    return _textfield;
+}
+
+- (BOOL)NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
+
 
 - (void)setLayout:(AlertViewLayout)layout {
     if (self.layout == layout) {
@@ -138,6 +174,14 @@ static CGFloat const ButtonHeight = 65.f;
             
             // description
             self.descriptionLabel.frame = CGRectMake(0, 216, CGRectGetWidth(self.frame), 50);
+            
+            break;
+        case withForm:
+            self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.titleLabel.numberOfLines = 0;
+            self.titleLabel.frame = CGRectMake(0, 40, CGRectGetWidth(self.frame), 44);
+            
+            self.textfield.frame = CGRectMake(AlertPadding, 160, CGRectGetWidth(self.frame) - AlertPadding*2, 42);
             
             break;
     }
@@ -240,12 +284,58 @@ static CGFloat const ButtonHeight = 65.f;
 
 - (void)touchButton:(UIButton*)sender
 {
-    [self dismiss];
+    [self dismissOrShake];
 }
 
-- (void)dismiss {
-    [self hideAlertView];
-    [self hideBackground];
+- (void) shake {
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    animation.duration = 0.6;
+    animation.values = @[ @(-20), @(20), @(-20), @(20), @(-10), @(10), @(-5), @(5), @(0) ];
+    [self.layer addAnimation:animation forKey:@"shake"];
+}
+
+- (void)returnTextfield:(UITextField*)sender
+{
+    [self dismissOrShake];
+}
+
+- (void)dismissOrShake {
+    if (self.layout == withForm) {
+        if ([self NSStringIsValidEmail:self.textfield.text]) {
+            [self.textfield resignFirstResponder];
+
+            NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+            NSMutableDictionary *user = [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+            
+            NSString *token = [user valueForKey:@"tumblrAccessToken"];
+            
+            NSString *updateUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/update?accessToken=%@", token];
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            NSDictionary *parameters = @{@"email": self.textfield.text};
+            [manager POST:updateUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                [user setObject:self.textfield.text forKey:@"email"];
+                
+                NSData* data=[NSKeyedArchiver archivedDataWithRootObject:user];
+                [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"user"];
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+            
+            [self hideAlertView];
+            [self hideBackground];
+        }
+        else {
+            [self shake];
+        }
+    }
+    else {
+        [self hideAlertView];
+        [self hideBackground];
+    }
 }
 
 @end

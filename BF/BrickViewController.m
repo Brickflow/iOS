@@ -492,6 +492,15 @@
             NSLog(@"Error: %@", error);
         }];
     }
+    
+    if (![user objectForKey:@"email"]) {
+        AlertView *av = [[AlertView alloc]init];
+        
+        av.titleLabel.text = [NSString stringWithFormat:@"Last step: Please confirm your email"];
+        av.layout = withForm;
+        
+        [av showInView:self];
+    }
 }
 
 - (IBAction)nopeButtonTouch:(id)sender {
