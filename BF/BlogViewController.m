@@ -188,6 +188,25 @@
     if (direction == MDCSwipeDirectionLeft) {
         NSLog(@"Photo deleted!");
         [BrickflowLogger log:@"follow" level:@"info" params:@{@"message": @"follow-dismiss", @"blog": self.frontCardView.blog.name}];
+        
+        // view blog
+        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+        NSDictionary *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
+        NSString *token = [user valueForKey:@"tumblrAccessToken"];
+        
+        NSString *viewUrl= [NSString stringWithFormat:@"http://api.brickflow.com/user/dismissBlog/%1$@?accessToken=%2$@",
+                            self.frontCardView.blog.name,
+                            token
+                            ];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"type": @"post"};
+        [manager POST:viewUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
     } else {
         NSLog(@"Photo saved!");
         [self.progressBar updateCounter:++self.counter];
