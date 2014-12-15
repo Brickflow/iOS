@@ -21,6 +21,8 @@
 
 #define lightColor [UIColor colorWithRed:255.0/255.0 green:172.0/255.0 blue:30.0/255.0 alpha:1.0]
 #define darkColor  [UIColor colorWithRed:81.0/255.0 green:66.0/255.0 blue:105.0/255.0 alpha:1.0]
+#define circleSize 25
+#define fontSize 14
 
 - (instancetype)initWithStep:(id)step
                 remainString:(NSString *)remainString
@@ -34,7 +36,8 @@
         self.max = max;
         self.counter = self.max < counter ? self.max : counter;
         
-        self.progress = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds)/self.max*self.counter, self.frame.size.height)];
+        self.progress = [[UIView alloc]initWithFrame:CGRectMake(0, 0,
+                                                                CGRectGetWidth(self.bounds)/self.max*self.counter + CGRectGetHeight(self.bounds), self.frame.size.height)];
 
         [self.progress setBackgroundColor:lightColor];
         
@@ -42,11 +45,10 @@
 
         [self setBackgroundColor:darkColor];
         
-        CGFloat circleSize = 25;
-        CGFloat fontSize = 14;
-        
         UIFont *akagisemibold = [UIFont fontWithName:@"Akagi-SemiBold" size:fontSize];
         UIFont *akagiextrabold = [UIFont fontWithName:@"Akagi-ExtraBold" size:fontSize];
+        
+        NSLog(@"%f", CGRectGetHeight(self.bounds));
         
         self.stepLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetHeight(self.bounds)/2-circleSize/2, CGRectGetHeight(self.bounds)/2-circleSize/2, circleSize, circleSize)];
         self.stepLabel.text = step;
@@ -59,12 +61,25 @@
 
         [self addSubview:self.stepLabel];
 
-        self.remainLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 0, 100, CGRectGetHeight(self.bounds))];
+        self.remainLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetHeight(self.bounds) + 8, 0, 100, CGRectGetHeight(self.bounds))];
         [self updateRemainLabel];
         [self.remainLabel setFont:akagisemibold];
         self.remainLabel.textColor = [UIColor whiteColor];
         
         [self addSubview:self.remainLabel];
+        
+//        CALayer *divider = [CALayer layer];
+//        
+//        divider.backgroundColor = [[UIColor colorWithRed:218/255 green:147/255 blue:26/255 alpha:1.0]CGColor];
+//        divider.frame = self.frame;
+//        
+//        [self.layer addSublayer:divider];
+        UIView *divider = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetHeight(self.bounds), 0, 1, CGRectGetHeight(self.bounds))];
+        
+        divider.backgroundColor = [UIColor colorWithRed:218.0/255.0 green:147.0/255.0 blue:26.0/255.0 alpha:1.0];
+        
+        [self addSubview:divider];
+    
     }
     
     return self;
