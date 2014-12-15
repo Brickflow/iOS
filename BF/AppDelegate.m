@@ -14,6 +14,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "FacebookSDK.h"
+#import "ACTReporter.h"
 
 
 @interface AppDelegate ()
@@ -26,6 +27,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [Fabric with:@[CrashlyticsKit]];
+    
+    [ACTConversionReporter reportWithConversionID:@"964997548" label:@"E1cwCN3MqlgQrOOSzAM" value:@"0.00" isRepeatable:NO];
     
     //authenticatedUser: check from NSUserDefaults User credential if its present then set your navigation flow accordingly
 
