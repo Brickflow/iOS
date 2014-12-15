@@ -249,6 +249,9 @@
     [self.searchBar setDelegate:self];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:font];
     
+    self.searchBar.layer.borderWidth = 1;
+    self.searchBar.layer.borderColor = [[UIColor whiteColor] CGColor];
+    
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:font} forState:UIControlStateNormal];
     
     // reveal menu

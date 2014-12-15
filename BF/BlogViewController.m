@@ -31,6 +31,7 @@
 @property (nonatomic, strong) NSURL *feedUrl;
 @property (strong, nonatomic) IBOutlet ProgressBarView *progressBar;
 - (IBAction)back:(UIBarButtonItem *)sender;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navigationOutlet;
 
 @end
 
@@ -157,11 +158,22 @@
 }
 
 - (CGRect)frontCardViewFrame {
-    CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = CGRectGetHeight(self.view.frame)/6.67;
+    CGFloat deviceHeight = self.view.frame.size.height;
+    CGFloat horizontalPadding;
     
+    if (deviceHeight > 480) {
+        horizontalPadding = 20.f;
+    }
+    else {
+        horizontalPadding = 40.f;
+    }
+    
+    CGFloat topPadding = CGRectGetHeight(self.view.frame)/7.5;
     topPadding = 60.f;
+    //CGFloat topPadding = CGRectGetHeight(self.view.frame)/6.67;
+    
     CGFloat bottomPadding = CGRectGetHeight(self.view.frame)/2.3821428571;
+    
     return CGRectMake(horizontalPadding,
                       topPadding,
                       CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),

@@ -37,7 +37,7 @@
         self.counter = self.max < counter ? self.max : counter;
         
         self.progress = [[UIView alloc]initWithFrame:CGRectMake(0, 0,
-                                                                CGRectGetWidth(self.bounds)/self.max*self.counter + CGRectGetHeight(self.bounds), self.frame.size.height)];
+                                                                (CGRectGetWidth(self.bounds) - CGRectGetHeight(self.bounds))/self.max*self.counter + CGRectGetHeight(self.bounds), self.frame.size.height)];
 
         [self.progress setBackgroundColor:lightColor];
         
@@ -47,8 +47,6 @@
         
         UIFont *akagisemibold = [UIFont fontWithName:@"Akagi-SemiBold" size:fontSize];
         UIFont *akagiextrabold = [UIFont fontWithName:@"Akagi-ExtraBold" size:fontSize];
-        
-        NSLog(@"%f", CGRectGetHeight(self.bounds));
         
         self.stepLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetHeight(self.bounds)/2-circleSize/2, CGRectGetHeight(self.bounds)/2-circleSize/2, circleSize, circleSize)];
         self.stepLabel.text = step;
@@ -68,12 +66,6 @@
         
         [self addSubview:self.remainLabel];
         
-//        CALayer *divider = [CALayer layer];
-//        
-//        divider.backgroundColor = [[UIColor colorWithRed:218/255 green:147/255 blue:26/255 alpha:1.0]CGColor];
-//        divider.frame = self.frame;
-//        
-//        [self.layer addSublayer:divider];
         UIView *divider = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetHeight(self.bounds), 0, 1, CGRectGetHeight(self.bounds))];
         
         divider.backgroundColor = [UIColor colorWithRed:218.0/255.0 green:147.0/255.0 blue:26.0/255.0 alpha:1.0];
